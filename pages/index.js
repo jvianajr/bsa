@@ -6,8 +6,8 @@ function Home() {
     <div>
         <h1>Banco Sonoro Amazônico</h1>
         <Link href="/sobre">
-        <a>Sobre o projeto</a>
-        </Link>
+            <a>Sobre o projeto</a>
+            </Link>
         </div>
 
     )
