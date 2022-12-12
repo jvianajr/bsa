@@ -1,0 +1,22 @@
+.footer {
+    background-color:rgb(255, 255, 255);
+    height: 150px;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    border-top: 1px solid rgb(33, 29, 40)
+}
+
+.footer a {
+    color: rgb(117, 97, 158);
+    text-decoration: none;
+    transition: .2s;
+}
+
+.footer a:hover {
+    color: rgb(33, 29, 40)
+}
+
+.footer span {
+    font-weight: bold;
+}
