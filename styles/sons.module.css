@@ -1,0 +1,27 @@
+.listadesons {
+    list-style: none;
+    margin: 1em auto;
+    min-height: 80vh;
+    max-width: 60%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    margin-bottom: 2em;
+
+}
+
+.listadesons li {
+    margin-bottom: 1em;
+    padding-bottom: 1em;
+    border-bottom: 1px solid #CCC;
+    text-decoration: none;
+    list-style: none;
+}
+
+.listadesons h6 {
+    font-size: small;
+    font-color: rgb(117, 97, 158);
+    
+}
