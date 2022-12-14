@@ -1,5 +1,3 @@
-import styles from '../styles/sons.module.css'
-
 import {
     Accordion,
     AccordionItem,
