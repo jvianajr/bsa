@@ -50,9 +50,9 @@ export default function Home({ sons, infopack }) {
       </AccordionButton>
     </h2>
     <AccordionPanel pb={4}>
-    <AspectRatio maxW='920px' ratio={920 / 245} objectFit='cover'>
-    <iframe scrolling="no" src={`https://freesound.org/embed/sound/iframe/${results.id}/simple/large/`}/>
-</AspectRatio>
+    <AspectRatio left="0" w="100%" h="0" pos="relative" pb="30%">
+    <iframe src={`https://freesound.org/embed/sound/iframe/${results.id}/simple/full_size/`} style={{top: 0, left: 0, width: '100%', height: '100%', position: 'absolute', border: 0,}} allowfullscreen scrolling="no"/>
+      </AspectRatio>
 </AccordionPanel>
   </AccordionItem>
   ))}

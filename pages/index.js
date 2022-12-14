@@ -1,6 +1,8 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import styles from '../styles/Home.module.css'
+import { Text,
+Container,
+ } from '@chakra-ui/react'
 
 
 export default function Home() {
@@ -11,10 +13,10 @@ export default function Home() {
   <meta name="keywords" content="inserir palavras chave"></meta>
   <meta name="description" content="inserir descrição da página"></meta>
 </Head>
-    <div className={styles.container}>
-      <main className={styles.main}>
+    
+    <Container>
         
-        <h3><i>uma coleção de sons da paisagem amazônica</i></h3>
+        <Text><i>uma coleção de sons da paisagem amazônica</i></Text>
 
       <h3>escute, baixe, crie e compartilhe</h3>
        
@@ -37,8 +39,7 @@ export default function Home() {
 <p>E, principalmente, boa navegação!</p>
 José Viana
 idealizador do projeto Banco Sonoro Amazônico
-</main>
-</div>
+</Container>
 </>
 
         
