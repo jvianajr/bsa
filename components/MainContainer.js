@@ -11,7 +11,7 @@ export default function MainContainer({children}) {
 <title>Banco Sonoro Amazônico</title>
         </Head>
         <Navbar />
-        <main className={styles.container}>{children}</main>
+        <main>{children}</main>
         <Footer />
         </>
     )

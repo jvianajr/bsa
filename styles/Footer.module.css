@@ -4,7 +4,8 @@
     display: flex;
     justify-content: center; 
     align-items: center;
-    border-top: 1px solid rgb(33, 29, 40)
+    border-top: 1px solid rgb(33, 29, 40);
+    font-size: small;
 }
 
 .footer a {

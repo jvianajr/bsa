@@ -25,3 +25,8 @@
     font-color: rgb(117, 97, 158);
     
 }
+
+.listadesons span {
+    color: red;
+    text-decoration: none;
+  }
