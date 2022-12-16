@@ -8,7 +8,6 @@ import {
     AspectRatio,
     Container,
     Button,
-    Text,
     Wrap,
     WrapItem,
     Center,
@@ -38,6 +37,7 @@ export async function getStaticProps(request, response) {
 export default function Home({ sons, infopack }) {
 
     return (
+      <>
 <Container maxW='6xl'>
 <h1>{infopack.name}</h1>
 <h3>{infopack.description}</h3>
@@ -72,7 +72,7 @@ export default function Home({ sons, infopack }) {
 </Accordion>
 </Container>
 </Container>
-
+</>
     )
 }
 
