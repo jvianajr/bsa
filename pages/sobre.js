@@ -1,5 +1,5 @@
 import Head from 'next/head'
-
+import { Container, Flex, Text, Box } from '@chakra-ui/react'
 export default function Sobre() {
     return (
         <>
@@ -8,7 +8,7 @@ export default function Sobre() {
   <meta name="keywords" content="inserir palavras chave"></meta>
   <meta name="description" content="inserir descrição da página"></meta>
 </Head>
-<div>
+<Container maxW='4xl'>
     <h3>Banco Sonoro Amazônico</h3>
     <p>
     versão 
@@ -39,7 +39,7 @@ export default function Sobre() {
     <p>Bruno Lopes, Marlon Thiago, Raony Miccione</p>
     <p>Maria Christina</p>
     <p>Tainah Fagundes, Felipe Cruz</p>
-    </div>
+    </Container>
     </>
     )
 }

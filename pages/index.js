@@ -1,6 +1,5 @@
 import Head from 'next/head'
-import { Container, Text, Box } from '@chakra-ui/react'
-// import Container from '../components/Container'
+import { Container, Flex, Text, Box } from '@chakra-ui/react'
  
 
 export default function Home() {
@@ -11,7 +10,7 @@ export default function Home() {
   <meta name="keywords" content="inserir palavras chave"></meta>
   <meta name="description" content="inserir descrição da página"></meta>
 </Head>
-<Container>
+<Container maxW='4xl'>
     <Text>uma coleção de sons da paisagem amazônica</Text>
 
       escute, baixe, crie e compartilhe

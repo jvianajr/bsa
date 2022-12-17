@@ -1,3 +1,5 @@
+import React from 'react'
+
 import {
   Accordion,
   AccordionItem,
@@ -14,7 +16,7 @@ import {
 } from '@chakra-ui/react'
 
 
-export async function getStaticProps(request, response) {
+export async function getStaticProps() {
   const apiSecret = process.env.CLIENT_SECRET;
   
   const resPack = await fetch(`https://freesound.org/apiv2/packs/36925?token=${apiSecret}`)
@@ -28,9 +30,9 @@ export async function getStaticProps(request, response) {
           infopack: dataPack,
           sons: data.results,
       },
+      revalidate: 600
   }
-
-  response.setHeader('Cache-Control', 's-maxage=10, stale-while-revalidate')
+  
 }
 
 
@@ -38,11 +40,11 @@ export default function Home({ sons, infopack }) {
 
   return (
     <>
-<Container maxW='6xl'>
+<Container maxW='4xl'>
 <h1>{infopack.name}</h1>
 <h3>{infopack.description}</h3>
 <p>Esta coleção possui atualmente <span>{infopack.num_sounds}</span> elementos sonoros.</p>
-<Container maxW='6xl'>
+<Box>
       <Accordion allowMultiple>
       {sons.map((results) => (
 <AccordionItem key={results.id}>
@@ -56,13 +58,13 @@ export default function Home({ sons, infopack }) {
   </h2>
   <AccordionPanel pb={4}>
   <AspectRatio left="0" w="100%" h="0" pos="relative" pb="30%">
-  <iframe src={`https://freesound.org/embed/sound/iframe/${results.id}/simple/full_size/`} style={{top: 0, left: 0, width: '100%', height: '100%', position: 'absolute', border: 0,}} allowfullscreen scrolling="no"/>
+  <iframe src={`https://freesound.org/embed/sound/iframe/${results.id}/simple/full_size/`} style={{top: 0, left: 0, width: '100%', height: '100%', position: 'absolute', border: 0,}} scrolling="no"/>
   </AspectRatio>
-    <Button as="a" target="_blank" mt="3" mr="3" colorScheme='teal' variant='solid' size='xs' href={`https://freesound.org/s/${results.id}/`}>Download</Button> 
+    <Button as="a" target="_blank" mt="3" mr="3" mb="3" colorScheme='teal' variant='solid' size='xs' href={`https://freesound.org/s/${results.id}/`}>Download</Button> 
 <Wrap>
-{results.tags.map((item, index) => (
-<WrapItem aligItens="center">
-<Center mt="3" color="yellow.600" fontSize='xs' key={index}>{item}</Center>
+{results.tags.map((item) => (
+<WrapItem>
+<Center color="yellow.600" fontSize='xs' key={results.id}>{item}</Center>
 </WrapItem>
   ))}
   </Wrap>
@@ -70,7 +72,7 @@ export default function Home({ sons, infopack }) {
 </AccordionItem>
 ))}
 </Accordion>
-</Container>
+</Box>
 </Container>
 </>
   )

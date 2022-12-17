@@ -1,4 +1,4 @@
-import { ChakraProvider, extendTheme } from '@chakra-ui/react'
+import { ChakraProvider, extendTheme, } from '@chakra-ui/react'
 import MainContainer from '../components/MainContainer'
 import theme from '../styles/theme'
 
