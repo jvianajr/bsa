@@ -8,14 +8,14 @@ import { Flex, Spacer } from '@chakra-ui/react'
 export default function Navbar() {
     return (
     <>
-    <Flex p="5" minWidth='max-content' alignItems='center' justifyContent='center'>
+    <Flex p="5" alignItems='center' justifyContent='center'>
         <Link href="/">
-        <Image src="/images/bsa_450px.png" 
-        width="450" 
-        height="44"
-        alt="BancoSonoroAmazonico"/></Link>
+        <Image src="/images/bsa_400px.png" 
+        width="400" 
+        height="39"
+        alt="Banco Sonoro Amazonico"/></Link>
         </Flex>
-        <Flex pt="1" pb="5" alignItems='center' justifyContent='center' flexWrap borderBottom="1px" borderBottomColor="gray.600">
+        <Flex pl="5" pt="1" pb="5" justifyContent='center' borderBottom="1px" borderBottomColor="gray.600">
          <ul className={styles.link_items}>
             <li>
             <Link legacyBehavior href="/colecoes">

@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import {
   Container, Heading, Text, Stack, Tabs, TabList, TabPanels, Tab, TabPanel
 } from '@chakra-ui/react'
@@ -15,10 +16,10 @@ export default function Home() {
       <Container maxW='4xl'>
         <Stack spacing={6}>
           <Heading>
-            uma coleção de sons da paisagem amazônica
+            Uma coleção de sons da paisagem amazônica,
           </Heading>
-          <Heading size='5xl'>
-            escute, baixe, crie e compartilhe
+          <Heading size='5xl' pb="5">
+            escute, baixe, crie e compartilhe.
           </Heading>
           <Tabs isFitted variant='enclosed'>
             <TabList mb='1em'>
@@ -28,15 +29,16 @@ export default function Home() {
             </TabList>
             <TabPanels>
               <TabPanel>
-                <p>O Banco Sonoro Amazônico [BSA] é construído a partir de sons coletados na paisagem amazônica, categorizados e disponibilizado na internet através da plataforma freesound.org, no intuito de que possam ser escutados, compartilhados, baixados e utilizados em outros projetos de arte, criação multimídia, pesquisa e educação - de forma gratuita* - sob licença Creative Commons.</p>
+              <Text pb="3">O Banco Sonoro Amazônico é uma coleção digital de sons coletados na paisagem, categorizados e disponibilizados gratuitamente através da plataforma <b>freesound.org</b>, sob licença <i>creative commons</i>.</Text>
+              <Text fontSize="xs">O BSA está atualmente na versão 1.1 com 53 elementos sonoros. Etapa realizada com recursos do Prêmio Preamar Arte e Cultura 2022 - Governo do Estado do Pará.</Text>
               </TabPanel>
               <TabPanel>
-                <Text fontSize="sm">É possível navegar e ouvir os sons do Banco Sonoro Amazônico através da estrutura de organização ao longo do site. No entanto, para baixar os arquivos para o computador ou celular, é necessário criar uma conta gratuita no freesound. Para isso, basta preencher o formulário de cadastro, confirmar os dados no seu email e fazer o login na plataforma.</Text>
-                <Text fontSize="sm">Todas as vezes que algum som do BSA for utilizado, o projeto deve ser mencionado. Clique para saber mais sobre como dar crédito ao projeto e autor.</Text>
+                <Text pb="3">Para navegar e escutar os sons basta acessar as <b>Coleções</b> no menu de cima. Para fazer o <i>download</i>, é necessário ter uma conta na plataforma <i>freesound</i>. É simples, rápido e gratuito <Link legacyBehavior href='https://freesound.org/home/register/'><a target="_blank">[clique aqui]</a></Link>.</Text>
+                <Text fontSize="sm" pb="3">Ao re-utilizar os sons, não esqueça de mencionar nos créditos o Banco Sonoro Amazônico e seu autor José Viana.</Text>
               </TabPanel>
               <TabPanel>
-              <Text fontSize="sm">O BSA está em sua primeira versão e esperamos a cada mês inserir novos arquivos. Utilizamos tecnologia gratuita e de código aberto através do serviço GitHub e Vercel para que sua autonomia não dependa de custos mensais de manutenção. Esperamos que o BSA possa servir ao longo do tempo às mais diversas necessidades, portanto, não hesite em compartilhá-lo com quem achar válido.</Text>
-                <Text fontSize="sm">Caso queira contribuir financeiramente com o projeto, faça uma doação via PIX através do qr-code abaixo, ou da chave via email bancosonoroamazonico@gmail.com</Text>
+              <Text pb="3">Imaginamos que o BSA possa ser utilizado de muitas formas ao longo do tempo. O intuito inicial é servir como recurso para outres criadores - artistas, DJs, músicos, podcasters, montadores. Recurso para outras pesquisas e para o desfruto livre - navegar com fones de ouvido, mergulhar na duração dos acontecimentos e imaginar os ambientes.</Text>
+              <Text fontSize="sm">Não hesite em compartilhá-lo com quem achar válido. Por ora, boa navegação!</Text>
               </TabPanel>
             </TabPanels>
           </Tabs>
