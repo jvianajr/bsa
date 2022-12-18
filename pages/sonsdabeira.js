@@ -62,9 +62,9 @@ export default function Home({ sons, infopack }) {
   </AspectRatio>
     <Button as="a" target="_blank" mt="3" mr="3" mb="3" colorScheme='teal' variant='solid' size='xs' href={`https://freesound.org/s/${results.id}/`}>Download</Button> 
 <Wrap>
-{results.tags.map((item) => (
-<WrapItem>
-<Center color="yellow.600" fontSize='xs' key={results.id}>{item}</Center>
+{results.tags.map((tag, index) => (
+<WrapItem color="yellow.600" fontSize='xs' key={index}>
+<Center>{tag}</Center>
 </WrapItem>
   ))}
   </Wrap>

@@ -13,7 +13,8 @@ export default function Navbar() {
         <Image src="/images/bsa_400px.png" 
         width="400" 
         height="39"
-        alt="Banco Sonoro Amazonico"/></Link>
+        alt="Banco Sonoro Amazonico"
+        priority="true"/></Link>
         </Flex>
         <Flex pl="5" pt="1" pb="5" justifyContent='center' borderBottom="1px" borderBottomColor="gray.600">
          <ul className={styles.link_items}>
