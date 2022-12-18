@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
+import Colecoes from './colecoes'
 import {
   Container, Heading, Text, Stack, Tabs, TabList, TabPanels, Tab, TabPanel
 } from '@chakra-ui/react'
@@ -14,7 +15,7 @@ export default function Home() {
         <meta name="description" content="inserir descrição da página"></meta>
       </Head>
       <Container maxW='4xl'>
-        <Stack spacing={6}>
+        <Stack spacing={6} pb="5">
           <Heading>
             Uma coleção de sons da paisagem amazônica,
           </Heading>
@@ -43,6 +44,10 @@ export default function Home() {
             </TabPanels>
           </Tabs>
         </Stack>
+        <Heading size='5xl' pb="5">
+            Coleções:
+          </Heading>
+          <Colecoes />
       </Container>
     </>
   )

@@ -24,10 +24,10 @@ import {
 export async function getStaticProps() {
   const apiSecret = process.env.CLIENT_SECRET;
 
-  const resPack = await fetch(`https://freesound.org/apiv2/packs/36925?token=${apiSecret}`)
+  const resPack = await fetch(`https://freesound.org/apiv2/packs/36946?token=${apiSecret}`)
   const dataPack = await resPack.json();
 
-  const res = await fetch(`https://freesound.org/apiv2/packs/36925/sounds?token=${apiSecret}`)
+  const res = await fetch(`https://freesound.org/apiv2/packs/36946/sounds?token=${apiSecret}`)
   const data = await res.json();
 
   return {
