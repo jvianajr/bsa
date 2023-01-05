@@ -27,14 +27,14 @@ export default function Navbar() {
             <Link legacyBehavior href="/mediacao">
             <a>Mediação</a>
             </Link>
-            </li>        
+            </li>
             <li>
             <Link legacyBehavior href="/sobre">
             <a>Sobre</a>
             </Link>
-            </li>
+            </li>        
             <li>
-            <Link legacyBehavior href="/">
+            <Link legacyBehavior href="/contato">
             <a>Contato</a>
             </Link>
             </li>

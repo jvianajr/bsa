@@ -17,3 +17,15 @@
 line-height: 1.4;
 text-align: justify;
 }
+
+
+.grid { 
+list-style: none;
+padding: 0;
+margin-left: 0;
+align-items: flex-start;
+}
+
+.grid img {
+  max-width: 100%;
+}

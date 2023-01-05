@@ -1,44 +1,43 @@
 import Head from 'next/head'
-import { Container, Flex, Text, Box } from '@chakra-ui/react'
+import Image from 'next/image'
+import { Container, Stack, Text, Heading } from '@chakra-ui/react'
 export default function Sobre() {
     return (
         <>
      <Head>
-  <title>BSA _ sobre</title>
-  <meta name="keywords" content="inserir palavras chave"></meta>
-  <meta name="description" content="inserir descrição da página"></meta>
+  <title>Sobre | Banco Sonoro Amazônico</title>
+  <meta name="keywords" content="amazonia som arte-sonora paisagem paisaje landscape amazon soundart sound sonido"></meta>
+  <meta name="description" content="Sobre o Banco Sonoro Amazônico"></meta>
 </Head>
 <Container maxW='4xl'>
-    <h3>Banco Sonoro Amazônico</h3>
-    <p>
-    versão 
-    1.0.1 
-    Dezembro, 2022</p>
-    
-    <h5>concepção, captação de som, mixagem e desenvolvimento web</h5>
-    José Viana
-    
-    <h5>assessoria técnica e conceitual para tratamento de som</h5>
-    Yuri Onça (Onça Records)
-    
-    <h5>assessoria desenvolvimento web</h5>
-    Bernardo Sertório
-    
-    
-    <p>A primeira etapa do projeto Banco Sonoro Amazônico foi financiada pelo Prêmio Preamar de Arte e Cultura 2022, através da Secretaria de Estado de Cultura do Pará - SECULT/PA.</p>
-    
-<h5>agradecimentos</h5>
-    <p>Bernardo Sertório, Camila Fialho, Diná Maria Chermont, Erika Morhy, Ewa Urfalino, Irene Almeida, Felipe Pamplona, Martín Perez, Pablo Mufarrej, Raquel Cardoso, Rodrigo Correa</p>
-    <p>Associação Aprunam, Jéssica, Tadeu</p>
-    <p>Impa</p>
-    <p>Associação Fotoativa</p>
-    <p>Onça Records</p>
-    <p>Bernardo Onça</p>
-    <p>Carol Abreu, Paulo Meira, Claudia Leão, Delen Castro, Felipe Mendonça, Anne Dias, Paula Vanessa</p>
-    <p>Debora Flor, Veronique Isabelle, Jean Christoff</p>
-    <p>Bruno Lopes, Marlon Thiago, Raony Miccione</p>
-    <p>Maria Christina</p>
-    <p>Tainah Fagundes, Felipe Cruz</p>
+        <Stack spacing={2}>
+          
+          <Heading as='h6' size='xs'>Concepção, criação e partilha</Heading>
+    <Text pb="4">José Viana</Text>
+
+    <Heading as='h6' size='xs'>Desenvolvimento web</Heading>
+    <Text pb="4">Estúdio Curica</Text>
+
+    <Heading as='h6' size='xs'>Assessoria de som</Heading>
+    <Text pb="4" >Yuri Onça (Onça Records)</Text>
+
+    <Heading as='h6' size='xs'>Agradecimentos</Heading>
+    <Text pb='10'>Diná Maria Chermont, Ewa Urfalino, Raquel Cardoso. Associação Fotoativa, Anne Dias, Irene Almeida, Jorge Ramos.
+    Associação Amprunam, Jéssica, Tadeu, Impa. Arte Fazenda Renascer, Pablo Remigi, Moana Remigi. Camila Fialho, Paula Vanessa, Rodrigo José.
+    Claudia Leão, Delen Castro, Paulo Meira. Carol Abreu, Erika Morhy, Felipe Pamplona. Felipe Mendonça, Pablo Mufarrej, Martín Perez.
+    Debora Flor, Veronique Isabelle, Jean Christoff. Yuri Onça, Bernardo Onça, Onça Records. Bernardo Sertório, Bruno Lopes, Marlon Thiago, Raony Miccione. Tainah Fagundes, Felipe Cruz.
+    E todas as pessoas que cruzaram de alguma maneira o processo de construção do BSA.
+    </Text>
+
+    <Heading as='h6' size='xs'>Banco Sonoro Amazônico</Heading>
+       <Text pb="4"> Versão 1.1, 2022.</Text>
+    <Heading as='h6' size='xs'>Financiamento</Heading>
+    <Text pb="4" >A primeira etapa conta com recursos do Prêmio Preamar de Arte e Cultura 2022 - Secretaria de Cultura do Pará - SECULT/PA.</Text>
+    <Image src="/images/preamar-secult.png" 
+        width="400" 
+        height="134"
+        alt="Preamar Cultura e Arte 2022"/>
+    </Stack>
     </Container>
     </>
     )

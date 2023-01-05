@@ -8,8 +8,8 @@ export default function Colecoes() {
   return (
     <>
       <Head>
-        <title>Coleções do Banco Sonoro Amazônico</title>
-        <meta name="keywords" content="inserir palavras chave"></meta>
+        <title>Coleções | Banco Sonoro Amazônico</title>
+        <meta name="keywords" content="amazonia som arte-sonora paisagem paisaje landscape amazon soundart sound sonido collections praia rio ilha cidade bairro casa beira porto sitio igarape"></meta>
       </Head>
         <Flex>
           <Grid templateColumns='repeat(3, 1fr)' gap={9}>

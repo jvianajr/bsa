@@ -9,9 +9,9 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>BSA _ página inicial</title>
-        <meta name="keywords" content="inserir palavras chave"></meta>
-        <meta name="description" content="inserir descrição da página"></meta>
+        <title>Banco Sonoro Amazônico</title>
+        <meta name="keywords" content="amazonia som arte-sonora paisagem paisaje landscape amazon soundart sound sonido"></meta>
+        <meta name="description" content="Uma coleção de sons da paisagem amazônica, escute, baixe, crie e compartilhe."></meta>
       </Head>
       <Container maxW='4xl'>
         <Stack spacing={6} pb="5">
@@ -30,7 +30,7 @@ export default function Home() {
             <TabPanels>
               <TabPanel>
               <Text pb="5">O Banco Sonoro Amazônico é uma coleção digital de sons coletados na paisagem, categorizados e disponibilizados gratuitamente através da plataforma <b>freesound.org</b>, sob licença <i>creative commons</i>.</Text>
-              <Text fontSize="xs">O BSA está na versão 1.1 e conta atualmente com 53 elementos sonoros. Esta etapa foi realizada com recursos do Prêmio Preamar Arte e Cultura 2022 - Governo do Estado do Pará.</Text>
+              <Text fontSize="xs">Concebido por José Viana, o BSA está na versão 1.1 e conta atualmente com 53 elementos sonoros. Esta etapa foi realizada com recursos do Prêmio Preamar Arte e Cultura 2022 - Governo do Estado do Pará.</Text>
               </TabPanel>
               <TabPanel>
               <Text pb="5">Imaginamos que o BSA possa ser utilizado de muitas formas ao longo do tempo. O intuito inicial é de servir como recurso sonoro para outras pesquisas e criações - remixes, montagens e utilizações nas mais diversas linguagens.</Text> 
