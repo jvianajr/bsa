@@ -10,6 +10,7 @@ export default function Colecoes() {
       <Head>
         <title>Coleções | Banco Sonoro Amazônico</title>
         <meta name="keywords" content="amazonia som arte-sonora paisagem paisaje landscape amazon soundart sound sonido collections praia rio ilha cidade bairro casa beira porto sitio igarape"></meta>
+        <meta name="description" content="O Banco Sonoro Amazônico é uma coleção digital de sons coletados na paisagem, disponibilizados gratuitamente através da plataforma freesound.org, sob licença creative commons."></meta>
       </Head>
         <Flex>
           <Grid templateColumns='repeat(3, 1fr)' gap={9}>

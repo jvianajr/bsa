@@ -32,37 +32,42 @@ export default function Home({ quant }) {
           <Text fontSize="2xl" pt="5">
             Uma coleção de sons disponíveis,
           </Text>
-          <Text fontSize='lg' pb="5">
-            escute, baixe, crie e compartilhe.
+          <Text fontSize='lg' pb="16">
+            escute (<i>com fones de ouvido</i>), baixe, crie e compartilhe.
           </Text>
-          <Box pb="10" align="center">
-            <Image src="/images/sons_200px.png" width="270" height="261" alt="Banco Sonoro Amazônico" />
+          <Box align="center">
+            <Image src="/images/sons_300px.png" width="250" height="242" alt="Banco Sonoro Amazônico" />
           </Box>
-          <Text>O <b>Banco Sonoro Amazônico</b> é uma coleção digital de sons coletados na paisagem, disponibilizados gratuitamente através da plataforma <i>freesound.org</i> sob licença <i>creative commons</i>.</Text>
+          <Text pt="14">O <b>Banco Sonoro Amazônico</b> é uma coleção digital de sons coletados na paisagem, disponibilizados gratuitamente através da plataforma <i>freesound.org</i> sob licença <i>creative commons</i>.</Text>
           <Text>Atualmente o BSA está na versão 1.1 e conta com <b> {quant} elementos sonoros</b>, organizados em <i>9 coleções</i>.</Text>
 
-          <Heading pt="7" size='md'>Modos de utilizar</Heading>
+          <Heading pt="10" size='md'>Modos de utilizar</Heading>
           <Text>Imaginamos o BSA sendo utilizado de muitas formas. Inicialmente como recurso sonoro para outras pesquisas e criações - montagens, remixagens e experimentações com diversas linguagens - além de ser um dispositivo artístico de uso livre.</Text>
-          <Text>Para mergulhar na duração dos acontecimentos, sugerimos o uso de fones de ouvido. Este dispositivo foi projetado para funcionar bem no computador e no celular, sendo uma obra acessível em qualquer lugar e tempo.</Text>
+          <Text>Este dispositivo foi projetado para funcionar bem no computador e no celular, sendo uma obra acessível em qualquer lugar e tempo. Para mergulhar na duração dos acontecimentos, sugerimos o uso de fones de ouvido.</Text>
 
-          <Heading pt="7" size='md'>Como funciona?</Heading>
-          <Text>Para navegar basta acessar as <b>Coleções</b> no menu acima. No canto esquerdo de cada elemento sonoro, há um pequeno botão ► para tocar.</Text>
-          <Text>Para fazer o <i>download</i> dos sons é necessário ter uma conta gratuita na plataforma <i>freesound</i>. É simples e rápido. Basta preencher o formulário e confirmar o cadastro no email. <Link legacyBehavior href='https://freesound.org/home/register/'><a target="_blank">[Para criar a conta, clique aqui]</a></Link>.</Text>
+          <Heading pt="10" size='md'>Como funciona?</Heading>
+          <Text pb="5">Para navegar basta acessar as <Link legacyBehavior href="/colecoes"><b>Coleções</b></Link> no menu acima. No canto esquerdo de cada elemento sonoro, há um pequeno botão ► para tocar.</Text>
+          <Image src="/images/exemplo_bsa.png" width="600" height="155" alt="Exemplo de como tocar os sons do Banco Sonoro Amazônico" />
+          <Text fontSize="xs">Imagem ilustrativa de como tocar os elementos sonoros.</Text>
+          <Text pt="5">Para fazer o <i>download</i> dos sons é necessário ter uma conta gratuita na plataforma <i>freesound</i>. É simples e rápido. Basta preencher o formulário e confirmar o cadastro no email.</Text>
 
-          <Heading pt="7" size='md'>Licença de uso, financiamento e contribuições</Heading>
-          <Text>Ao re-utilizar os sons no seu projeto, você aceita em mencionar nos créditos algo do tipo: <i>Este projeto conta com recursos sonoros do Banco Sonoro Amazônico, com autoria de José Viana.</i></Text>
-          <Text>A etapa inicial do projeto contou com recursos do <b>Prêmio Preamar - Cultura e Arte 2022</b>, da Secretaria de Cultura do Governo do Pará.</Text>
-          <Text>E caso você sinta o desejo de contribuir financeiramente para ampliação e manutenção do projeto, faça um PIX para <b>bancosonoroamazonico.com</b> ou utilize o Qr Code abaixo.</Text>
-        
+          <Heading pt="10" size='md'>Licença de uso</Heading>
+          <Text>Você pode utilizar os sons legalmente amparado pela <Link legacyBehavior href="https://creativecommons.org/licenses/by/4.0/deed.pt_BR"><a target="_blank">Licença 4.0 Creative Commons (saiba mais)</a></Link>.</Text>
+          <Text>Ao fazer uso dos sons no seu projeto, você aceita mencionar nos créditos algo do tipo: <i>Este projeto conta com recursos sonoros do Banco Sonoro Amazônico, com autoria de José Viana.</i></Text>
+          <Text>Ficaremos contentes em saber mais notícias, se possível mande uma mensagem através da aba <Link legacyBehavior href="/contato"><b>Contato.</b></Link></Text>
+
+          <Heading pt="10" size='md'>Financiamento, ampliação e manutenção</Heading>
+          <Text>A etapa inicial deste projeto contou com recursos do <b>Prêmio Preamar - Cultura e Arte 2022</b>, da Secretaria de Cultura do Governo do Pará.</Text>
+          <Text>Caso você utilize os sons com fins comerciais (legalmente autorizado) e entenda que seja justo fazer uma retribuição financeira - ou sinta o desejo de contribuir para ampliação e manutenção do projeto - faça um PIX para <b>bancosonoroamazonico.com</b> ou utilize o Qr Code abaixo:</Text>
           <Box pt="5" pb="5" align="center">
-            <Image src="/images/pix_bsa.jpg" width="170" height="170" alt="Banco Sonoro Amazônico"/>
-          </Box>
-          <Box bg='white.50' fontSize='xs' w='300px' color='black.600' align="center">
-          00020101021126520014br.gov.bcb.pix0130bancosonoroamazonico@gmail.com5204000053039865802BR5918JOSE DE A V JUNIOR6005BELEM62070503***63044544
-</Box>
-        
-          <Text align="center" pt="7">Agradecemos a visita! Compartilhe com quem achar válido.</Text>
-          <Text align="center">E boa jornada!</Text>
+            <Image src="/images/pix_bsa.jpg" width="170" height="170" alt="Banco Sonoro Amazônico" />
+            <Text fontSize="sm" p="5">Ou copie e cole as informações do PIX:</Text>
+            <Box bg='white.50' fontWeight="semibold" fontSize='xs' w='300px' color='black.600'>
+              00020101021126520014br.gov.bcb.pix0130bancosonoroamazonico@gmail.com5204000053039865802BR5918JOSE DE A V JUNIOR6005BELEM62070503***63044544
+            </Box></Box>
+
+          <Text align="center" pt="7">Agradecemos a visita!</Text>
+          <Text align="center">Se puder compartilhe e boa navegação!</Text>
         </Stack>
       </Container>
     </>

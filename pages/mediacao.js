@@ -24,7 +24,7 @@ export default function Mediacao({ data }) {
       <Head>
         <title>Mediação | Banco Sonoro Amazônico</title>
         <meta name="keywords" content="amazonia som arte-sonora paisagem paisaje landscape amazon soundart sound sonido"></meta>
-        <meta name="description" content="Página com materiais educativos do projeto Banco Sonoro Amazônico"></meta>
+        <meta name="description" content="O Banco Sonoro Amazônico é uma coleção digital de sons coletados na paisagem, disponibilizados gratuitamente através da plataforma freesound.org, sob licença creative commons."></meta>
       </Head>
       <Container maxW='4xl'>
       <Stack spacing={2}>

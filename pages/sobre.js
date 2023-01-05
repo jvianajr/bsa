@@ -1,18 +1,19 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import { Container, Stack, Text, Heading, Box } from '@chakra-ui/react'
+
 export default function Sobre() {
     return (
         <>
      <Head>
   <title>Sobre | Banco Sonoro Amazônico</title>
-  <meta name="keywords" content="amazonia som arte-sonora paisagem paisaje landscape amazon soundart sound sonido"></meta>
-  <meta name="description" content="Sobre o Banco Sonoro Amazônico"></meta>
+  <meta name="keywords" content="amazonia som arte-sonora paisagem paisaje landscape amazon soundart sound sonido jose-viana amazonica"></meta>
+  <meta name="description" content="O Banco Sonoro Amazônico é uma coleção digital de sons coletados na paisagem, disponibilizados gratuitamente através da plataforma freesound.org, sob licença creative commons."></meta>
 </Head>
 <Container maxW='4xl'>
         <Stack spacing={2}>
-          
-          <Heading as='h6' size='xs'>Concepção, criação e partilha</Heading>
+        <Text pt="14">O <b>Banco Sonoro Amazônico</b> é uma coleção digital de sons coletados na paisagem, disponibilizados gratuitamente através da plataforma <i>freesound.org</i>, sob licença <i>creative commons</i>.</Text>
+          <Heading pt="10" as='h6' size='xs'>Concepção, criação e partilha</Heading>
     <Text pb="4">José Viana</Text>
 
     <Heading as='h6' size='xs'>Desenvolvimento web</Heading>
