@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import { Container, Stack, Text, Heading } from '@chakra-ui/react'
+import { Container, Stack, Text, Heading, Box } from '@chakra-ui/react'
 export default function Sobre() {
     return (
         <>
@@ -22,11 +22,10 @@ export default function Sobre() {
     <Text pb="4" >Yuri Onça (Onça Records)</Text>
 
     <Heading as='h6' size='xs'>Agradecimentos</Heading>
-    <Text pb='10'>Diná Maria Chermont, Ewa Urfalino, Raquel Cardoso. Associação Fotoativa, Anne Dias, Irene Almeida, Jorge Ramos.
-    Associação Amprunam, Jéssica, Tadeu, Impa. Arte Fazenda Renascer, Pablo Remigi, Moana Remigi. Camila Fialho, Paula Vanessa, Rodrigo José.
-    Claudia Leão, Delen Castro, Paulo Meira. Carol Abreu, Erika Morhy, Felipe Pamplona. Felipe Mendonça, Pablo Mufarrej, Martín Perez.
-    Debora Flor, Veronique Isabelle, Jean Christoff. Yuri Onça, Bernardo Onça, Onça Records. Bernardo Sertório, Bruno Lopes, Marlon Thiago, Raony Miccione. Tainah Fagundes, Felipe Cruz.
-    E todas as pessoas que cruzaram de alguma maneira o processo de construção do BSA.
+    <Text pb='10'>Diná Maria Chermont, Ewa Urfalino, Raquel Cardoso. Raio Verde, Camila Fialho, Felipe Mendonça, Martín Perez, Rodrigo José. Associação Fotoativa, Anne Dias, Irene Almeida, Jorge Ramos.
+    Debora Flor, Veronique Isabelle, Paula Vanessa, Hugo Kloeckner. Kamara Kó Galeria.
+    Claudia Leão, Delen Castro, Paulo Meira. Carol Abreu, Erika Morhy, Felipe Pamplona. Associação Amprunam, Jéssica, Tadeu, IMPA. Arte Fazenda Renascer, Pablo Remigi, Moana Remigi. Jean Christoff, Rosi Elbaum. Yuri Onça, Bernardo Onça, Onça Records. Louiza Lima, Bernardo Sertório. Bruno Lopes, Marlon Thiago, Raony Miccione. Tainah Fagundes, Felipe Cruz, Cassio Tavernard, Pablo Mufarrej.
+    E todas as pessoas que cruzaram de alguma maneira no processo de construção do BSA.
     </Text>
 
     <Heading as='h6' size='xs'>Banco Sonoro Amazônico</Heading>
@@ -37,6 +36,13 @@ export default function Sobre() {
         width="400" 
         height="134"
         alt="Preamar Cultura e Arte 2022"/>
+       <Text pt="7"> Para contribuir financeiramente para ampliação e manutenção do projeto, faça um PIX para <b>bancosonoroamazonico.com</b> ou utilize o Qr Code abaixo.</Text>
+        <Box pt="5" pb="5" align="center">
+          <Image src="/images/pix_bsa.jpg" width="250" height="250" alt="Banco Sonoro Amazônico"/>
+        </Box>
+        <Box bg='yellow.50' fontSize='xs' w='100%' color='black.600'>
+        00020101021126520014br.gov.bcb.pix0130bancosonoroamazonico@gmail.com5204000053039865802BR5918JOSE DE A V JUNIOR6005BELEM62070503***63044544
+</Box>
     </Stack>
     </Container>
     </>
