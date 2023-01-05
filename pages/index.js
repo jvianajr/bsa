@@ -55,9 +55,9 @@ export default function Home({ quant }) {
           <Text>E caso você sinta o desejo de contribuir financeiramente para ampliação e manutenção do projeto, faça um PIX para <b>bancosonoroamazonico.com</b> ou utilize o Qr Code abaixo.</Text>
         
           <Box pt="5" pb="5" align="center">
-            <Image src="/images/pix_bsa.jpg" width="250" height="250" alt="Banco Sonoro Amazônico"/>
+            <Image src="/images/pix_bsa.jpg" width="170" height="170" alt="Banco Sonoro Amazônico"/>
           </Box>
-          <Box bg='yellow.50' fontSize='xs' w='100%' color='black.600'>
+          <Box bg='white.50' fontSize='xs' w='300px' color='black.600' align="center">
           00020101021126520014br.gov.bcb.pix0130bancosonoroamazonico@gmail.com5204000053039865802BR5918JOSE DE A V JUNIOR6005BELEM62070503***63044544
 </Box>
         
