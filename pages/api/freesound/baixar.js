@@ -30,6 +30,16 @@ export default async function handler(req, res) {
   const baixarDoFreesound = () => fetch(`https://freesound.org/apiv2/sounds/${id}/download/`, { headers: auth, redirect: 'manual', signal: AbortSignal.timeout(20000) })
   let r = await baixarDoFreesound()
 
+  // Freesound pediu para esperar (limite de pedidos): tenta mais uma vez se a espera for curta
+  if (r.status === 429) {
+    const espera = Number(r.headers.get('retry-after'))
+    console.error('Freesound download 429', espera || '', (await r.text().catch(() => '')).slice(0, 300))
+    if (espera > 0 && espera <= 3) {
+      await new Promise((ok) => setTimeout(ok, espera * 1000))
+      r = await baixarDoFreesound()
+    }
+  }
+
   if (r.status === 401 && !novosCookies && (await renovar())) {
     auth = { Authorization: `Bearer ${token}` }
     r = await baixarDoFreesound()
@@ -45,8 +55,9 @@ export default async function handler(req, res) {
     return res.redirect(302, r.headers.get('location'))
   }
   if (!r.ok || !r.body) {
-    console.error('Freesound download falhou', r.status)
-    return res.status(502).send('Não foi possível baixar o som agora. Tente de novo ou baixe pelo freesound.org.')
+    // não deu pelo site: leva a pessoa à página do som no Freesound, onde o download sempre funciona
+    console.error('Freesound download falhou', r.status, r.status === 429 ? '' : (await r.text().catch(() => '')).slice(0, 300))
+    return res.redirect(302, `https://freesound.org/s/${id}/`)
   }
 
   // nome do arquivo: nome do som + extensão original
