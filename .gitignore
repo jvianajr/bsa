@@ -102,3 +102,6 @@ dist
 
 # TernJS port file
 .tern-port
+
+# variáveis de ambiente locais (chaves) — nunca enviar ao GitHub
+.env*.local

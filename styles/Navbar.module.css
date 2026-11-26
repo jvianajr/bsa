@@ -1,34 +1,43 @@
-.navbar {
-    background-color:rgb(255, 255, 255);
-    height: 130px;
+/* Menu do topo */
+
+.topo {
+    background-size: cover;
+    background-position: center;
+}
+
+.logo {
     display: flex;
-    flex-direction: column;
-    justify-content: center; 
     align-items: center;
-    margin-bottom: 2em;
-    border-bottom: 1px solid rgb(33, 29, 40); 
-    font-size: small;
+    justify-content: center;
+    padding: 1.75rem 1.25rem 1rem;
 }
 
-.navbar a {
-    color: rgb(117, 97, 158);
-    margin-left: 1em;
-    margin-right: 1em;
-    text-decoration: none;
-    transition: .2s;
+@media (min-width: 48em) {
+    .logo { padding-top: 2.25rem; padding-bottom: 1.25rem; }
 }
 
-.navbar a:hover {
-    color: rgb(33, 29, 40)
+/* computador: lista horizontal (some no celular) */
+.computador {
+    display: none;
+    justify-content: center;
+    padding: 0 0.75rem 1.5rem;
+}
+
+@media (min-width: 48em) {
+    .computador { display: flex; }
 }
 
 .link_items {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
     list-style: none;
 }
 
 .link_items li {
-    margin-right: 1.3em;
+    margin: 0 0.65em; /* espaço igual dos dois lados, para o menu ficar centralizado */
 }
 
 .link_items a {
@@ -39,5 +48,81 @@
 }
 
 .link_items a:hover {
-    border-color:rgb(33, 29, 40)
+    border-color: rgb(33, 29, 40);
+}
+
+/* celular: botão "Menu" que abre a lista (some no computador) */
+.celular {
+    display: block;
+    padding-bottom: 0.75rem;
+}
+
+@media (min-width: 48em) {
+    .celular { display: none; }
+}
+
+.botao_menu {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0 auto;
+    height: 2rem;
+    padding: 0 0.75rem;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    transition: background .2s;
+}
+
+.botao_menu:hover { background: rgba(0, 0, 0, 0.06); }
+.escuro .botao_menu:hover { background: rgba(255, 255, 255, 0.16); }
+
+.botao_menu svg { width: 1rem; height: 1rem; }
+
+/* a lista abre e fecha deslizando */
+.gaveta {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows .25s ease, opacity .25s ease;
+    opacity: 0;
+}
+
+.gaveta > div { overflow: hidden; }
+
+.gaveta_aberta {
+    grid-template-rows: 1fr;
+    opacity: 1;
+}
+
+.menu_celular {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 0.5rem 0;
+}
+
+.menu_celular a {
+    display: block;
+    padding: 10px 0;
+    font-size: 1.05em;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.menu_celular a:last-child {
+    border-bottom: none;
+}
+
+/* topo escuro: logo e menu em branco sobre o espectrograma */
+.escuro { color: #fff; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45); }
+.escuro .link_items a { color: #fff; }
+.escuro .link_items a:hover { border-color: #fff; }
+.escuro .menu_celular a { border-bottom-color: rgba(255, 255, 255, 0.18); }
+
+/* topo claro: logo e menu escuros, com linha embaixo */
+.claro { color: #1A202C; border-bottom: 1px solid #4A5568; }
+
+/* tamanhos de fonte no celular (menu horizontal, se aparecer em telas estreitas) */
+@media (max-width: 480px) {
+    .link_items li { margin: 0 0.15em; }
+    .link_items a { padding: 4px 2px; font-size: 0.8em; }
 }
