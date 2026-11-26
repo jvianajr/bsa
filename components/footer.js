@@ -44,7 +44,7 @@ export default function Footer() {
           </Link>
         ))}
       </div>
-      <div className='linha quebra' style={{ justifyContent: 'center' }}>
+      <div className='linha quebra' style={{ justifyContent: 'center', marginTop: '1.5rem' }}>
         <p className='t-xs centro' style={{ padding: '.75rem' }}><b>Banco Sonoro Amazônico</b> hospeda seus arquivos na plataforma <a href="https://freesound.org" target="_blank" rel="noreferrer"><i>Freesound.org</i></a>.</p>
         <p className='t-xs centro' style={{ padding: '.75rem' }}>Desenvolvido por <Link href='/'><b>Estúdio Curica</b></Link> + Claude.AI com tecnologia <a href="https://github.com/" target="_blank" rel="noreferrer"><i>GitHub</i></a> + <a href="https://vercel.com" target="_blank" rel="noreferrer"><i>Vercel</i></a>.</p>
       </div>

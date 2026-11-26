@@ -28,6 +28,9 @@
 /* ---------- base (o mesmo "reset" que o Chakra aplicava) ---------- */
 *, *::before, *::after { box-sizing: border-box; border-width: 0; border-style: solid; border-color: var(--cinza-200); }
 html { line-height: 1.5; -webkit-text-size-adjust: 100%; font-family: var(--fonte); text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; }
+/* computador: todas as fontes (e medidas em rem) 7% maiores */
+@media (min-width: 48em) { html { font-size: 107%; } }
+
 body { margin: 0; color: var(--texto); background: #fff; font-family: var(--fonte); line-height: 1.5; }
 h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd, ul, ol { margin: 0; }
 h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
@@ -41,7 +44,7 @@ button { background: transparent; cursor: pointer; padding: 0; }
 cite { font-style: italic; }
 
 /* ---------- estrutura ---------- */
-.container { width: 100%; max-width: 56rem; margin-inline: auto; padding-inline: 1rem; }
+.container { width: 100%; max-width: 896px; margin-inline: auto; padding-inline: 16px; } /* largura fixa em px: não cresce com as fontes */
 .pilha { display: flex; flex-direction: column; }
 .linha { display: flex; flex-direction: row; align-items: center; }
 .quebra { flex-wrap: wrap; }
@@ -192,9 +195,21 @@ textarea.campo { height: auto; min-height: 5rem; padding-block: .5rem; line-heig
 @media (min-width: 48em) { .grade-2 { grid-template-columns: repeat(2, 1fr); } }
 
 /* ---------- nuvem ---------- */
-.nuvem { text-align: center; line-height: 1.9; padding-block: 1rem; }
-.nuvem a { display: inline-block; margin-inline: .5rem; transition: color .2s; }
-.nuvem a:hover { color: var(--amarelo); }
+.nuvem { padding-block: 1.5rem; line-height: 1.55; font-size: .85rem; } /* celular: palavras um pouco menores, a nuvem fica mais compacta */
+@media (min-width: 48em) {
+  /* computador: a nuvem sai da coluna e ocupa 96% da largura de qualquer tela;
+     as palavras mantêm o tamanho; em telas maiores cabem mais palavras por faixa */
+  .nuvem { font-size: 1rem; width: 96vw; position: relative; left: 50%; translate: -50% 0; }
+}
+.nuvem-faixa { display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; margin-inline: auto; }
+.nuvem a { display: inline-block; color: var(--cor); margin-inline: .45em; transition: color .2s, translate .45s ease-out; }
+.nuvem a:hover, .nuvem a:focus-visible { color: var(--amarelo); }
+/* flutuação lenta, cada palavra no seu ritmo (só com movimento permitido) */
+@media (prefers-reduced-motion: no-preference) {
+  .nuvem.viva a { animation: flutuar var(--dur, 7s) ease-in-out var(--atraso, 0s) infinite alternate; }
+  .nuvem.viva a:hover, .nuvem.viva a:focus-visible, .nuvem.parada a { animation-play-state: paused; }
+}
+@keyframes flutuar { from { transform: translate(0, -2.5px); } to { transform: translate(var(--dx, 1px), 2.5px); } }
 
 /* ---------- utilidades visuais ---------- */
 .citacao { background: var(--branco-translucido); border-left: 3px solid var(--verde-claro); padding: .75rem 1rem; font-size: .875rem; }
@@ -213,6 +228,7 @@ textarea.campo { height: auto; min-height: 5rem; padding-block: .5rem; line-heig
 }
 .dica:hover::after, .dica:focus-visible::after { opacity: 1; }
 .icone { width: 1.25rem; height: 1.25rem; transition: color .2s; }
+footer .icone { width: 22px; height: 22px; } /* ícones do rodapé, 10% maiores */
 
 /* ---------- moldura do conteúdo ---------- */
 .fundo-principal { display: flex; flex-direction: column; align-items: center; justify-content: center; padding-block: 50px; }
