@@ -18,7 +18,9 @@ export default function BotaoDownload({ id }) {
     : `/api/freesound/entrar?voltar=${voltar}&som=${id}`
 
   return (
+    // já com login: abre em outra aba, para a pessoa não sair do BSA (se o arquivo baixar, o navegador fecha a aba sozinho)
     <a href={href} className='botao botao-xs' style={{ marginBlock: '.75rem' }}
+      {...(logado ? { target: '_blank', rel: 'noreferrer' } : {})}
       title={logado ? 'Baixar o arquivo original' : 'Entrar com sua conta do Freesound para baixar'}>
       {logado ? 'Download' : 'Download (entrar com Freesound)'}
     </a>

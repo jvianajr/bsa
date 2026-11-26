@@ -73,7 +73,7 @@ export default function ListaDeSons({ sons, mostrarColecao = false }) {
             {som.ficha && <p className='t-xs cor-600 pb-1'>{som.ficha}</p>}
             <div className='tags'>
               {som.tags.map(({ tag, rotulo }) => (
-                <Link key={tag} href={`/tag/${encodeURIComponent(tag)}`} className='tag'>{rotulo}</Link>
+                <Link key={tag} href={`/tag/${encodeURIComponent(tag)}`} prefetch={false} className='tag'>{rotulo}</Link>
               ))}
             </div>
             {som.descricao && <p className='t-xs cor-600 pt-4 quebra-linhas'>{som.descricao}</p>}

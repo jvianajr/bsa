@@ -47,6 +47,7 @@ export default function Nuvem({ palavras }) {
               <NextLink
                 key={p.tag}
                 href={`/tag/${encodeURIComponent(p.tag)}`}
+                prefetch={false}
                 title={`${p.n} ${p.n === 1 ? 'som' : 'sons'}`}
                 style={{
                   fontSize: `${(0.8 + p.peso * 1.9).toFixed(2)}rem`,
