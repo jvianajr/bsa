@@ -8,7 +8,7 @@
   --texto: #1A202C;        /* gray.800 */
   --cinza-700: #2D3748;
   --cinza-600: #4A5568;
-  --cinza-500: #718096;
+  --cinza-500: #5E6A7D;   /* 27/11: mais escuro que o gray.500 (#718096) para ter contraste mínimo de 4,5:1 sobre o fundo */
   --cinza-300: #CBD5E0;
   --cinza-200: #E2E8F0;
   --cinza-100: #EDF2F7;
@@ -22,6 +22,7 @@
   --branco-translucido: rgba(255, 255, 255, 0.64);
   --raio: 6px;
   --raio-pequeno: 2px;
+  --fonte-dados: ui-monospace, Menlo, monospace;
   --fonte: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
@@ -36,7 +37,7 @@ h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd, ul, ol { margin: 0; }
 h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
 ul, ol { list-style: none; padding: 0; }
 a { color: inherit; text-decoration: none; }
-b, strong { font-weight: 700; }
+b, strong { font-weight: 550; } /* entre médio e semi-negrito (27/11; era 700) */
 img, svg, video, canvas, iframe { display: block; vertical-align: middle; }
 img, video { max-width: 100%; height: auto; }
 button, input, textarea, select { font: inherit; color: inherit; margin: 0; }
@@ -69,13 +70,13 @@ cite { font-style: italic; }
 /* ---------- texto ---------- */
 .t-xs { font-size: 0.75rem; } .t-sm { font-size: 0.875rem; } .t-md { font-size: 1rem; }
 .t-lg { font-size: 1.125rem; } .t-xl { font-size: 1.25rem; } .t-2xl { font-size: 1.5rem; }
-.negrito { font-weight: 700; } .seminegrito { font-weight: 600; } .medio { font-weight: 500; }
+.negrito { font-weight: 550; } .seminegrito { font-weight: 550; } .medio { font-weight: 550; } /* 550 (27/11; eram 700, 600 e 500) */
 .cor-500 { color: var(--cinza-500); } .cor-600 { color: var(--cinza-600); } .cor-700 { color: var(--cinza-700); }
 .quebra-linhas { white-space: pre-line; }
 .quebra-palavras { word-break: break-all; }
 
 /* títulos (mesmos tamanhos dos títulos do Chakra) */
-.titulo { font-weight: 700; line-height: 1.2; }
+.titulo { font-weight: 550; line-height: 1.2; } /* 550 (27/11; era 700) */
 .titulo-xs { font-size: 0.875rem; }
 .titulo-sm { font-size: 1rem; }
 .titulo-md { font-size: 1.25rem; }
@@ -149,7 +150,7 @@ textarea.campo { height: auto; min-height: 5rem; padding-block: .5rem; line-heig
 .janela > summary:hover { background: rgba(0, 0, 0, 0.04); }
 .janela > summary:focus-visible { outline: 2px solid #3182CE; outline-offset: -2px; }
 .janela > summary .rotulo { flex: 1; text-align: left; }
-.janela > .conteudo { padding: .5rem 1rem 1.25rem; }
+.janela > .conteudo { padding: 1rem 1rem 1.25rem; } /* em cima: 1rem (era .5rem), para respirar mais entre o título e o conteúdo */
 .janela[open] > .conteudo { animation: abrir .2s ease-out; }
 @keyframes abrir { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
 
@@ -235,3 +236,48 @@ footer .icone { width: 22px; height: 22px; } /* ícones do rodapé, 10% maiores 
 /* no computador a imagem do fundo fica parada enquanto a página rola */
 @media (min-width: 48em) { .fundo-fixo { background-attachment: fixed, scroll; } }
 .campo-transparente { background: transparent; }
+
+/* ---------- fontes: IBM Plex Sans nos textos, IBM Plex Mono nos dados (carregadas em lib/fontes.js) ---------- */
+.raiz { --fonte: var(--f-plex-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+        --fonte-dados: var(--f-plex-mono), ui-monospace, Menlo, monospace; font-family: var(--fonte); }
+.tags, .acoes-som, .ficha-som { font-family: var(--fonte-dados); }
+
+/* cabeçalho em frase (experimento): uma linha, minúsculas, no tamanho do texto normal do site; palavra-título em negrito médio */
+.cabecalho-frase h1 { font-size: 1rem; font-weight: 400; line-height: 1.5; }
+.cabecalho-frase .palavra-titulo { font-weight: 500; }
+.cabecalho .cabecalho-uso { font-size: .875rem; color: var(--cinza-600); padding-top: .25rem; } /* linha de uso, menor e em cinza */
+
+/* título do som nos acordeons: português em negrito médio (500, como era), o resto no peso normal */
+.titulo-som { display: block; font-weight: 400; }
+.titulo-som b { font-weight: 500; }
+
+/* links no meio dos textos (27/11): verde, que fica preto ao passar o mouse, para não se confundir com negrito.
+   Usa o verde-escuro (#2C7A7B): o verde-claro da borda da citação (#38B2AC) fica fraco demais para ler em texto. */
+/* no conteúdo (main) e no rodapé; o menu do topo fica de fora */
+:where(main, footer) :where(p, li, .citacao) a:not([class]) { color: var(--verde-escuro); transition: color .2s; }
+:where(main, footer) :where(p, li, .citacao) a:not([class]):hover,
+:where(main, footer) :where(p, li, .citacao) a:not([class]):focus-visible { color: var(--texto); }
+
+/* ---------- acessibilidade (27/11) ---------- */
+/* foco visível ao navegar pelo teclado: contorno azul em links, botões e campos */
+:where(a, button, summary, input, textarea, select, [tabindex]):focus-visible { outline: 2px solid #3182CE; outline-offset: 2px; border-radius: 2px; }
+/* atalho "pular para o conteúdo": escondido até receber o foco (tecla Tab) */
+.pular-para-conteudo { position: absolute; left: 12px; top: -100px; z-index: 2000; padding: .5rem .9rem; border-radius: var(--raio);
+  background: #fff; color: var(--texto); font-weight: 550; box-shadow: 0 2px 10px rgba(0,0,0,.25); }
+.pular-para-conteudo:focus { top: 12px; }
+
+/* nuvem: opções para ver as palavras; um quadradinho verde marca a opção escolhida */
+.nuvem-modos { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-start; gap: .35rem 1rem; }
+.nuvem-modos button { display: inline-flex; align-items: center; gap: .4rem; color: var(--cinza-700); transition: color .2s; }
+.nuvem-modos button::before { content: ''; width: .7rem; height: .7rem; border: 1.5px solid var(--verde-escuro); border-radius: 2px; transition: background .2s; }
+.nuvem-modos button:hover { color: var(--texto); }
+.nuvem-modos button:hover::before { background: rgba(44, 122, 123, .25); }
+.nuvem-modos button.ativo { color: var(--texto); }
+.nuvem-modos button.ativo::before { background: var(--verde-escuro); }
+.nuvem-lista { columns: 12rem auto; column-gap: 2rem; font-size: .9rem; padding-top: 1.25rem; } /* mais espaço antes da lista */
+.nuvem-lista li { break-inside: avoid; padding-block: .15rem; }
+.nuvem[hidden] { display: none; }
+
+/* lista com marcadores no meio do texto (página de acessibilidade) */
+.lista-simples { list-style: disc; padding-left: 1.25rem; display: flex; flex-direction: column; gap: .35rem; }
+.peso-normal { font-weight: 400; } /* trecho sem negrito dentro de um título (ex.: o ano nas etapas da Ficha técnica) */

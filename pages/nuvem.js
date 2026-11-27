@@ -141,6 +141,14 @@ export default function Nuvem({ palavras }) {
   const ref = useRef(null)
   const total = palavras.length
   const [faixas, setFaixas] = useState(() => montarFaixas(palavras))
+  // modo de ver as palavras: em nuvem, em ordem alfabética ou das mais frequentes às menos frequentes
+  const [modo, setModo] = useState('nuvem')
+  const [semente, setSemente] = useState(1) // muda a cada clique em "aleatória", para sortear uma nova ordem
+  const lista = modo === 'alfabetica'
+    ? [...palavras].sort((a, b) => a.rotulo.localeCompare(b.rotulo, 'pt-BR'))
+    : modo === 'aleatoria'
+      ? [...palavras].sort((a, b) => hash(a.tag + semente) - hash(b.tag + semente))
+      : [...palavras].sort((a, b) => b.n - a.n || a.rotulo.localeCompare(b.rotulo, 'pt-BR'))
   // mede a nuvem e refaz o desenho para a largura desta tela (e de novo se a janela mudar de tamanho)
   useEffect(() => {
     let largura = 0
@@ -165,9 +173,26 @@ export default function Nuvem({ palavras }) {
         <meta name="description" content="Nuvem de palavras-chave dos sons do Banco Sonoro Amazônico." />
       </Head>
       <div className='container'>
-        <Cabecalho titulo="Nuvem" subtitulo="As palavras que descrevem os sons. Quanto maior, mais sons ela reúne. Clique numa palavra para escutar." />
+        <Cabecalho titulo="nuvem" frase="(ou como se aproximar dos sons pela palavra)" uso="clique em uma palavra para escutar os sons, ou mude a forma de ver logo abaixo." />
         <div className='pilha g-6 pb-10'>
-          <div className='nuvem' ref={ref}>
+          <div className='nuvem-modos t-xs' role='group' aria-label='Ver as palavras'>
+            <span className='cor-600'>ver:</span>
+            {[['nuvem', 'em nuvem'], ['alfabetica', 'em ordem alfabética'], ['frequentes', 'das mais frequentes'], ['aleatoria', 'em lista aleatória']].map(([id, nome]) => (
+              <button key={id} type='button' aria-pressed={modo === id} className={modo === id ? 'ativo' : ''}
+                onClick={() => { setModo(id); if (id === 'aleatoria') setSemente(Math.floor(Math.random() * 1e6)) }}>{nome}</button>
+            ))}
+          </div>
+          {modo !== 'nuvem' && (
+            <ul className='nuvem-lista'>
+              {lista.map((p) => (
+                <li key={p.tag}>
+                  <NextLink href={`/tag/${encodeURIComponent(p.tag)}`} prefetch={false} className='link'
+                    title={`${p.n} ${p.n === 1 ? 'som' : 'sons'}`}>{p.rotulo}</NextLink>
+                </li>
+              ))}
+            </ul>
+          )}
+          <div className='nuvem' ref={ref} hidden={modo !== 'nuvem'}>
             {faixas.map((f, i) => (
               <div key={i} className='nuvem-faixa' style={{ maxWidth: `${f.largura}%`, position: 'relative', left: `${f.desvio}%` }}>
                 {f.palavras.map((p) => {
@@ -181,7 +206,7 @@ export default function Nuvem({ palavras }) {
                       style={{
                         fontSize: `${tamanho(p.peso).toFixed(2)}em`,
                         fontWeight: p.peso > 0.6 ? 600 : 400,
-                        '--cor': p.peso > 0.6 ? '#1A202C' : p.peso > 0.3 ? '#2D3748' : '#718096',
+                        '--cor': p.peso > 0.6 ? '#1A202C' : p.peso > 0.3 ? '#2D3748' : '#5E6A7D',
                         // ritmo próprio de cada palavra: duração de 5 a 9 s, começando em pontos diferentes
                         '--dur': `${5 + (h % 400) / 100}s`,
                         '--atraso': `-${(h >>> 9) % 900 / 100}s`,

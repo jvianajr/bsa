@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { mostrarTituloAoAbrir } from '../lib/acordeao'
 import Link from 'next/link'
 import BotaoDownload from './BotaoDownload'
 
@@ -11,6 +12,14 @@ export const Seta = () => (
 
 // Lista de sons que abre e fecha, usada nas páginas de coleção e de palavra-chave.
 // mostrarColecao: mostra de qual coleção o som é (útil nas páginas de palavra-chave).
+// Título do som: só a parte em português fica em negrito; do canal ([mono]/[stereo]) ou do " | " em diante,
+// a parte em inglês fica no peso normal. É só uma divisão do texto, sem custo para quem visita.
+function TituloDoSom({ nome }) {
+  const m = /^(.*?)(\s+(?:\[(?:mono|stereo)\]|\|).*)$/i.exec(nome || '')
+  if (!m) return <span className='titulo-som'><b>{nome}</b></span>
+  return <span className='titulo-som'><b>{m[1]}</b><span lang='en'>{m[2]}</span></span>
+}
+
 export default function ListaDeSons({ sons, mostrarColecao = false }) {
   // O player do Freesound só é carregado quando o som é aberto pela primeira vez.
   // Depois disso ele continua carregado, então o som segue tocando mesmo se a janela for fechada.
@@ -31,10 +40,10 @@ export default function ListaDeSons({ sons, mostrarColecao = false }) {
   return (
     <div className='acordeao' ref={lista}>
       {sons.map((som) => (
-        <details key={som.id} data-id={som.id} className='janela janela-som' onToggle={(e) => aoAbrir(som.id, e.currentTarget.open)}>
+        <details key={som.id} data-id={som.id} className='janela janela-som' onToggle={(e) => { aoAbrir(som.id, e.currentTarget.open); mostrarTituloAoAbrir(e.currentTarget) }}>
           <summary>
             <span className='rotulo'>
-              <span className='medio' style={{ display: 'block' }}>{som.name}</span>
+              <TituloDoSom nome={som.name} />
               {mostrarColecao && som.colecao && <span className='t-xs cor-500'>{som.colecao.nome}</span>}
             </span>
             <Seta />
@@ -70,7 +79,7 @@ export default function ListaDeSons({ sons, mostrarColecao = false }) {
             {som.agradecimentos && (
               <p className='t-xs cor-700 pb-2'>Agradecimentos: {som.agradecimentos}</p>
             )}
-            {som.ficha && <p className='t-xs cor-600 pb-1'>{som.ficha}</p>}
+            {som.ficha && <p className='t-xs cor-600 pb-1 ficha-som'>{som.ficha}</p>}
             <div className='tags'>
               {som.tags.map(({ tag, rotulo }) => (
                 <Link key={tag} href={`/tag/${encodeURIComponent(tag)}`} prefetch={false} className='tag'>{rotulo}</Link>

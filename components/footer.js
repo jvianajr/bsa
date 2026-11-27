@@ -48,6 +48,7 @@ export default function Footer() {
         <p className='t-xs centro' style={{ padding: '.75rem' }}><b>Banco Sonoro Amazônico</b> hospeda seus arquivos na plataforma <a href="https://freesound.org" target="_blank" rel="noreferrer"><i>Freesound.org</i></a>.</p>
         <p className='t-xs centro' style={{ padding: '.75rem' }}>Desenvolvido por <Link href='/'><b>Estúdio Curica</b></Link> + Claude.AI com tecnologia <a href="https://github.com/" target="_blank" rel="noreferrer"><i>GitHub</i></a> + <a href="https://vercel.com" target="_blank" rel="noreferrer"><i>Vercel</i></a>.</p>
       </div>
+      <p className='t-xs centro' style={{ padding: '0 .75rem .75rem' }}>Este site conta com estratégias de acessibilidade para leitores de tela e navegação por teclado. <Link href='/acessibilidade'><b>Saiba mais</b></Link>.</p>
     </footer>
   )
 }

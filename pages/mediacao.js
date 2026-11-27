@@ -36,7 +36,7 @@ export default function Mediacao({ data }) {
         <meta name="description" content="O Banco Sonoro Amazônico é uma coleção digital de sons coletados na paisagem, disponibilizados gratuitamente através da plataforma freesound.org, sob licença creative commons."></meta>
       </Head>
       <div className='container'>
-      <Cabecalho titulo="Mediação" subtitulo="Tutoriais, conversas e materiais educativos diversos." />
+      <Cabecalho titulo="mediação" frase="(ou meios para conhecer mais sobre o projeto)" uso="assista aos vídeos e conheça os materiais do projeto." />
       <div className='pilha g-2'>
         {data.items.length === 0 && (
           <p className='t-sm'>Assista aos vídeos na <a href={`https://www.youtube.com/playlist?list=${PLAYLIST_ID}`} target="_blank" rel="noreferrer"><b>playlist do Banco Sonoro Amazônico no YouTube</b></a>.</p>

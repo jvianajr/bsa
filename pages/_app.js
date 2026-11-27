@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import Script from 'next/script'
 import MainContainer from '../components/MainContainer'
 import { GOATCOUNTER_URL } from '../lib/visitas'
+import { classesFontes } from '../lib/fontes'
 import '../styles/bsa.css'
 
 function MyApp({ Component, pageProps }) {
@@ -22,9 +23,11 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <>
-      <MainContainer>
-        <Component {...pageProps} />
-      </MainContainer>
+      <div className={classesFontes}>
+        <MainContainer>
+          <Component {...pageProps} />
+        </MainContainer>
+      </div>
       <Script
         src="https://gc.zgo.at/count.js"
         data-goatcounter={`${GOATCOUNTER_URL}/count`}

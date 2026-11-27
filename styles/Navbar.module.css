@@ -20,7 +20,7 @@
 .computador {
     display: none;
     justify-content: center;
-    padding: 0 0.75rem 1.5rem;
+    padding: 0 0.75rem calc(1.5rem + 8px); /* 30 px entre o menu e a borda de baixo do topo */
 }
 
 @media (min-width: 48em) {
@@ -50,6 +50,10 @@
 .link_items a:hover {
     border-color: rgb(33, 29, 40);
 }
+
+/* itens com 80% de opacidade; o da página atual e o que está com o mouse em cima ficam com a cor completa */
+.link_items a { opacity: .8; }
+.link_items a:hover, .link_items a:focus-visible, .link_items a.ativo { opacity: 1; }
 
 /* celular: botão "Menu" que abre a lista (some no computador) */
 .celular {
@@ -126,3 +130,8 @@
     .link_items li { margin: 0 0.15em; }
     .link_items a { padding: 4px 2px; font-size: 0.8em; }
 }
+
+/* menu todo em minúsculas (experimento de 27/11), como nos cabeçalhos em frase */
+.link_items a, .menu_celular a, .botao_menu { text-transform: lowercase; }
+.link_items a { font-weight: 450; } /* um pouco mais de força no menu (27/11; era 400) */
+.escuro a:focus-visible, .escuro button:focus-visible { outline-color: #fff; } /* sobre o espectrograma escuro, contorno branco */

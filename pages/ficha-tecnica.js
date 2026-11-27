@@ -7,7 +7,7 @@ import Janela from '../components/Janela'
 // Ficha técnica: créditos gerais e, em janelas que abrem e fecham, os créditos de cada etapa do projeto.
 
 function Etapa({ titulo, children }) {
-  return <Janela titulo={titulo} alinhada espaco={1}>{children}</Janela>
+  return <Janela grupo='etapas' titulo={titulo} alinhada espaco={1}>{children}</Janela>
 }
 
 // Um bloco de crédito: título pequeno e o texto logo abaixo
@@ -41,24 +41,24 @@ export default function FichaTecnica() {
         <meta name="description" content="Ficha técnica do Banco Sonoro Amazônico: créditos, financiamento e agradecimentos de cada etapa do projeto."></meta>
       </Head>
       <div className='container'>
-        <Cabecalho titulo="Ficha técnica" subtitulo="Créditos, financiamento e agradecimentos de cada etapa do projeto." />
+        <Cabecalho titulo="ficha técnica" frase="(créditos, financiamento e agradecimentos de cada etapa do projeto)" uso="abra cada etapa para ver os créditos e os agradecimentos." />
         <div className='pilha g-2'>
-          <p>O <b>Banco Sonoro Amazônico</b> é um projeto de construção e partilha de recursos sonoros obtidos a partir de experiências de deslocamento, convívio e escuta das diferentes realidades amazônicas.</p>
+          <p>O <b>Banco Sonoro Amazônico</b> é um projeto de construção e partilha de sons, registrados a partir de experiências de deslocamento, de convívio e de escuta das múltiplas realidades da Amazônia.</p>
           <p>Os sons são disponibilizados gratuitamente para usos não comerciais pela plataforma <i>freesound.org</i>, sob licença <i>Creative Commons</i> CC BY-NC 4.0.</p>
 
           <div className='pt-10'>
-            <Credito titulo="Concepção, criação e partilha"><p>José Viana</p></Credito>
-            <Credito titulo="Desenvolvimento web"><p>Estúdio Curica</p></Credito>
+            <Credito titulo="concepção, escuta e desenvolvimento"><p>José Viana</p></Credito>
+            <Credito titulo="desenvolvimento web"><p>Estúdio Curica</p></Credito>
             <Credito titulo="Banco Sonoro Amazônico"><p>Versão 2.0, 2026.</p></Credito>
           </div>
 
           <div className='acordeao pt-4 pb-10'>
-            <Etapa titulo="2022. Banco Sonoro Amazônico - Etapa 1: Imersão, criação e partilha">
+            <Etapa titulo={<><span className='peso-normal'>2022.</span> Banco Sonoro Amazônico - Etapa 1: Imersão, criação e partilha</>}>
               <p className='pb-5'>Projeto financiado pelo <b>Prêmio Preamar de Cultura e Arte 2022</b> (Edital nº 001/2022, Modalidade 2), da Secretaria de Cultura do Governo do Estado do Pará - SECULT/PA.</p>
 
-              <Credito titulo="Assessoria de som"><p>Yuri Onça (Onça Records)</p></Credito>
+              <Credito titulo="assessoria de som"><p>Yuri Onça (Onça Records)</p></Credito>
 
-              <Credito titulo="Agradecimentos">
+              <Credito titulo="agradecimentos">
                 <p>Diná Maria Chermont, Ewa Urfalino, Raquel Cardoso. Raio Verde, Camila Fialho, Felipe Mendonça, Martín Perez, Rodrigo José. Associação Fotoativa, Anne Dias, Irene Almeida, Jorge Ramos. Debora Flor, Veronique Isabelle, Paula Vanessa, Hugo Kloeckner. Kamara Kó Galeria. Claudia Leão, Delen Castro, Paulo Meira. Carol Abreu, Erika Morhy, Felipe Pamplona. Associação Amprunam, Jéssica, Tadeu, IMPA. Arte Fazenda Renascer, Pablo Remigi, Moana Remigi. Jean Christoff, Rosi Elbaum. Yuri Onça, Bernardo Onça, Onça Records. Louiza Lima, Bernardo Sertório. Bruno Lopes, Marlon Thiago, Raony Miccione. Tainah Fagundes, Felipe Cruz, Cassio Tavernard, Pablo Mufarrej. E todas as pessoas que cruzaram de alguma maneira no processo de construção do BSA.</p>
               </Credito>
 
@@ -68,25 +68,25 @@ export default function FichaTecnica() {
               </div>
             </Etapa>
 
-            <Etapa titulo="2026. Banco Sonoro Amazônico - Etapa Carajás">
+            <Etapa titulo={<><span className='peso-normal'>2026.</span> Banco Sonoro Amazônico - Etapa Carajás</>}>
               <p className='pb-5'>Projeto financiado pelo <b>Edital nº 002/2025 - Cultura Digital</b>, da Política Nacional Aldir Blanc de Fomento à Cultura - PNAB 2025, Governo Federal e Governo do Estado do Pará.</p>
 
-              <Credito titulo="Produção local">
+              <Credito titulo="produção local">
                 <p>Marabá: Amanda Gondim, Margareth Gondim e Thiago Cruz</p>
                 <p>Parauapebas: Deyvid Roger</p>
               </Credito>
 
-              <Credito titulo="Vídeo de divulgação"><p>Lucas Domires</p></Credito>
+              <Credito titulo="vídeo de divulgação"><p>Lucas Domires</p></Credito>
 
-              <Credito titulo="Assessoria de imprensa"><p>Ewa Urfalino</p></Credito>
+              <Credito titulo="assessoria de imprensa"><p>Ewa Urfalino</p></Credito>
 
-              <Credito titulo="Apoio institucional">
+              <Credito titulo="apoio institucional">
                 <p>Comuna Cepasp (Marabá, PA)</p>
                 <p>Instituto Pontal (Marabá, PA)</p>
                 <p>Associação Fotoativa (Belém, PA)</p>
               </Credito>
 
-              <Credito titulo="Agradecimentos pessoais">
+              <Credito titulo="agradecimentos pessoais">
                 <div className='pilha g-3'>
                   {AGRADECIMENTOS_CARAJAS.map(([lugar, nomes]) => (
                     <div key={lugar}>
@@ -100,6 +100,7 @@ export default function FichaTecnica() {
               <div className='pt-4'><Logos /></div>
             </Etapa>
           </div>
+
 
         </div>
       </div>

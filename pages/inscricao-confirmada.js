@@ -14,7 +14,7 @@ export default function InscricaoConfirmada() {
         <Cabecalho titulo="Inscrição confirmada!" subtitulo="Obrigado por acompanhar o Banco Sonoro Amazônico. Você vai receber as novidades por e-mail." />
         <div className='pilha g-5 pb-10'>
           <p>
-            Enquanto isso, conheça o que já está disponível nas <Link href='/colecoes'><b>Coleções</b></Link>, ou por meio do <Link href='/mapa'><b>Mapa</b></Link> ou da <Link href='/nuvem'><b>Nuvem</b></Link>.
+            Enquanto isso, conheça o que já está disponível nas <Link href='/colecoes'><b>coleções</b></Link>, ou por meio do <Link href='/mapa'><b>mapa</b></Link> ou da <Link href='/nuvem'><b>nuvem</b></Link>.
           </p>
         </div>
       </div>

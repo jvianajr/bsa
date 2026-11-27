@@ -12,7 +12,7 @@ export default function Ecos() {
         <meta name="description" content="Ecos: criações feitas com sons do Banco Sonoro Amazônico." />
       </Head>
       <div className='container'>
-        <Cabecalho titulo="Ecos" subtitulo="Músicas, filmes, instalações, pesquisas e outras criações feitas com sons do Banco Sonoro Amazônico." />
+        <Cabecalho titulo="ecos" frase="(ou modos para descobrir as outras criações que daqui se fizeram ecoar)" uso="conheça as criações feitas com os sons ou envie a sua." />
         <div className='pilha g-6 pb-10'>
 
           {projetos.length === 0 ? (

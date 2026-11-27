@@ -28,6 +28,7 @@ export const MENU = [
   { href: '/nuvem', nome: 'Nuvem' },
   { href: '/mediacao', nome: 'Mediação' },
   { href: '/ecos', nome: 'Ecos' },
+  { href: '/ficha-tecnica', nome: 'Ficha técnica' },
 ]
 
 // Também ficam no rodapé (como ícones); no celular aparecem por extenso no menu.
@@ -56,6 +57,11 @@ export default function Navbar() {
     return () => router.events.off('routeChangeStart', fechar)
   }, [router.events])
 
+  // item do menu da página aberta (coleções e tags contam como Coleções e Nuvem)
+  const caminho = router.pathname
+  const ativo = (href) => href === '/' ? caminho === '/'
+    : caminho.startsWith(href) || (href === '/colecoes' && caminho === '/[colecao]') || (href === '/nuvem' && caminho.startsWith('/tag'))
+
   return (
     <header className={`${styles.topo} ${topo.classe}`} style={topo.fundo}>
       <div className={styles.logo}>
@@ -69,7 +75,10 @@ export default function Navbar() {
       <nav className={styles.computador} aria-label='Menu principal'>
         <ul className={styles.link_items}>
           {MENU.map((item) => (
-            <li key={item.href}><Link href={item.href}>{item.nome}</Link></li>
+            <li key={item.href}>
+              <Link href={item.href} className={ativo(item.href) ? styles.ativo : undefined}
+                aria-current={ativo(item.href) ? 'page' : undefined}>{item.nome}</Link>
+            </li>
           ))}
         </ul>
       </nav>
@@ -83,7 +92,7 @@ export default function Navbar() {
         <div className={`${styles.gaveta} ${aberto ? styles.gaveta_aberta : ''}`}>
           <div>
             <nav id='menu-celular' className={styles.menu_celular} aria-label='Menu'>
-              {[...MENU, ...MENU_RODAPE].map((item) => (
+              {[...MENU, ...MENU_RODAPE.filter((r) => !MENU.some((m) => m.href === r.href))].map((item) => (
                 <Link key={item.href} href={item.href} tabIndex={aberto ? 0 : -1}
                   {...(item.href.startsWith('http') ? { target: '_blank', rel: 'noreferrer' } : {})}>{item.nome}</Link>
               ))}

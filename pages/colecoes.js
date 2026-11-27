@@ -19,7 +19,7 @@ export default function Colecoes({ colecoes }) {
         <meta name="description" content="O Banco Sonoro Amazônico é uma coleção digital de sons coletados na paisagem, disponibilizados gratuitamente através da plataforma freesound.org, sob licença creative commons."></meta>
       </Head>
       <div className='container'>
-        <Cabecalho titulo="Coleções" subtitulo="Os sons organizados pelos lugares e situações em que foram escutados." />
+        <Cabecalho titulo="coleções" frase="(ou como categorizar o mundo atento às armadilhas da categorização)." uso="escolha uma coleção e dê play nos sons para escutar." />
         <div className='pb-10'><GradeColecoes colecoes={colecoes} /></div>
       </div>
     </>
