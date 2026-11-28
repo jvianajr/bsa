@@ -18,11 +18,22 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const colecao = colecaoPorSlug(params.colecao)
   if (!colecao) return { notFound: true }
-  const pacotes = await buscarPacotes()
-  const pacote = pacotes[colecao.pacote] || {}
-  // Só pede a lista de sons se o pacote já tiver sons publicados.
-  const sons = pacote.num_sounds > 0 ? await buscarSonsDoPacote(colecao.pacote) : []
-  const visiveis = await buscarColecoesVisiveis()
+  let pacote, sons, visiveis
+  try {
+    const pacotes = await buscarPacotes()
+    pacote = pacotes[colecao.pacote] || {}
+    // Só pede a lista de sons se o pacote já tiver sons publicados.
+    sons = pacote.num_sounds > 0 ? await buscarSonsDoPacote(colecao.pacote) : []
+    visiveis = await buscarColecoesVisiveis()
+  } catch (e) {
+    // Freesound fora do ar ou no limite: em vez de erro, a página abre com um aviso
+    // e tenta de novo em 1 minuto (só acontece se ainda não houver uma versão boa guardada).
+    console.error('coleção', colecao.slug, e.message)
+    return {
+      props: { colecao, infopack: { name: colecao.nome, description: '', num_sounds: 0 }, sons: [], colecoes: [], falhou: true },
+      revalidate: 60,
+    }
+  }
   return {
     props: {
       colecao,
@@ -38,7 +49,7 @@ export async function getStaticProps({ params }) {
   }
 }
 
-export default function Colecao({ colecao, sons, infopack, colecoes }) {
+export default function Colecao({ colecao, sons, infopack, colecoes, falhou }) {
   return (
     <>
       <Seo titulo={infopack.name} caminho={`/${colecao.slug}`}
@@ -49,7 +60,7 @@ export default function Colecao({ colecao, sons, infopack, colecoes }) {
           {sons.length > 0 ? (
             <p className='t-xs'>Esta coleção possui atualmente <i>{infopack.num_sounds}</i> elementos sonoros. Para escutar, clique no nome de um som e depois no botão <i>play</i>, no canto inferior da faixa sonora. Para baixar, use o botão <i>Download</i>: na primeira vez, você autoriza o acesso com a sua conta gratuita do <i>freesound.org</i>.</p>
           ) : (
-            <p className='t-sm'>Os sons desta coleção estão em preparação e serão publicados em breve.</p>
+            <p className='t-sm'>{falhou ? 'Não foi possível carregar os sons desta coleção agora. Tente de novo em alguns minutos.' : 'Os sons desta coleção estão em preparação e serão publicados em breve.'}</p>
           )}
           <div className='pb-5'>
             <ListaDeSons sons={sons} />

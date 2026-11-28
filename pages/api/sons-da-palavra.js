@@ -13,6 +13,6 @@ export default async function handler(req, res) {
     return res.status(200).json({ tags, rotulos: tags.map(rotuloDaTag), sons })
   } catch (e) {
     console.error('sons-da-palavra:', e.message)
-    return res.status(502).json({ erro: 'Não foi possível buscar os sons agora.' })
+    return res.status(502).json({ erro: 'Não foi possível buscar os sons agora.', detalhe: String(e.message).slice(0, 240) }) // detalhe sem a chave (a URL é cortada antes do token)
   }
 }
