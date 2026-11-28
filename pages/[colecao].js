@@ -2,7 +2,7 @@ import Seo from '../components/Seo'
 import GradeColecoes from '../components/GradeColecoes'
 import ListaDeSons from '../components/ListaDeSons'
 import colecoes, { colecaoPorSlug } from '../lib/colecoes'
-import { buscarPacotes, buscarSonsDoPacote, buscarColecoesVisiveis, ATUALIZAR_A_CADA } from '../lib/freesound'
+import { buscarPacotes, buscarSonsDoPacote, buscarColecoesVisiveis, colecoesDaLista, ATUALIZAR_A_CADA } from '../lib/freesound'
 import { prepararSom } from '../lib/sons'
 import Cabecalho from '../components/Cabecalho'
 
@@ -26,10 +26,13 @@ export async function getStaticProps({ params }) {
     sons = pacote.num_sounds > 0 ? await buscarSonsDoPacote(colecao.pacote) : []
     visiveis = await buscarColecoesVisiveis()
   } catch (e) {
-    // Freesound fora do ar ou no limite: o erro faz o site continuar mostrando a última versão boa
-    // da página (só a primeira montagem de uma coleção fica sem página até o Freesound voltar).
+    // Freesound fora do ar ou no limite: a página abre com um aviso e a grade das outras coleções
+    // (tirada da lista do site) e tenta de novo em 1 minuto. Antes, aparecia uma página de erro.
     console.error('coleção', colecao.slug, e.message)
-    throw e
+    return {
+      props: { colecao, infopack: { name: colecao.nome, description: '', num_sounds: 0 }, sons: [], colecoes: colecoesDaLista(), falhou: true },
+      revalidate: 60,
+    }
   }
   return {
     props: {

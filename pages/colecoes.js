@@ -1,12 +1,15 @@
 import Seo from '../components/Seo'
 import GradeColecoes from '../components/GradeColecoes'
-import { buscarColecoesVisiveis, ATUALIZAR_A_CADA } from '../lib/freesound'
+import { buscarColecoesVisiveis, colecoesDaLista, EM_BUILD, ATUALIZAR_A_CADA } from '../lib/freesound'
 import Cabecalho from '../components/Cabecalho'
 
 export async function getStaticProps() {
-  return {
-    props: { colecoes: await buscarColecoesVisiveis() },
-    revalidate: ATUALIZAR_A_CADA,
+  try {
+    return { props: { colecoes: await buscarColecoesVisiveis() }, revalidate: ATUALIZAR_A_CADA }
+  } catch (e) {
+    // com o site no ar, o erro mantém a última versão boa; na montagem, a página sai com a lista do site
+    if (!EM_BUILD) throw e
+    return { props: { colecoes: colecoesDaLista() }, revalidate: 60 }
   }
 }
 

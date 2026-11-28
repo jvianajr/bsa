@@ -6,13 +6,20 @@ import Logos from '../components/Logos'
 import Newsletter from '../components/Newsletter'
 import SomDeExemplo from '../components/SomDeExemplo'
 
-import { buscarColecoesVisiveis, buscarSonsEDownloads, ATUALIZAR_A_CADA } from '../lib/freesound'
+import { buscarColecoesVisiveis, buscarSonsEDownloads, colecoesDaLista, EM_BUILD, ATUALIZAR_A_CADA } from '../lib/freesound'
 import { buscarTotalVisitas, VISITAS_DESDE } from '../lib/visitas'
 import Cabecalho from '../components/Cabecalho'
 import Janela from '../components/Janela'
 
 export async function getStaticProps() {
-  const colecoes = await buscarColecoesVisiveis()
+  let colecoes, semFreesound = false
+  try {
+    colecoes = await buscarColecoesVisiveis()
+  } catch (e) {
+    // com o site no ar, o erro mantém a última versão boa; na montagem, a página sai sem os números
+    if (!EM_BUILD) throw e
+    colecoes = colecoesDaLista(); semFreesound = true
+  }
   // Se a contagem de downloads ou de visitas falhar, a página abre sem essas informações.
   const sons = await buscarSonsEDownloads().catch(() => ({ total: null, ids: [] }))
   const visitas = await buscarTotalVisitas().catch(() => null)
@@ -21,10 +28,10 @@ export async function getStaticProps() {
       downloads: sons.total,
       idsDosSons: sons.ids,
       visitas,
-      quant: colecoes.reduce((total, c) => total + c.numSons, 0),
+      quant: semFreesound ? null : colecoes.reduce((total, c) => total + c.numSons, 0),
       numColecoes: colecoes.length,
     },
-    revalidate: ATUALIZAR_A_CADA
+    revalidate: semFreesound ? 60 : ATUALIZAR_A_CADA
   }
 }
 
@@ -77,7 +84,7 @@ export default function Home({ quant, numColecoes, downloads, visitas, idsDosSon
             titulo='Tambor de crioula no Centro de São Luis' serie='Waveform' ano='2026' autoria='José Viana · Banco Sonoro Amazônico' />
           <p className='pt-10'>O <b>Banco Sonoro Amazônico</b> é um projeto de construção e partilha de sons, registrados a partir de experiências de deslocamento, de convívio e de escuta das múltiplas realidades da Amazônia.</p>
           <p>Os sons são disponibilizados gratuitamente para usos não comerciais pela plataforma <i>freesound.org</i>, sob licença <i>Creative Commons</i> CC BY-NC 4.0.</p>
-          <p>Atualmente o BSA está na versão 2.0 e conta com <b> {quant} elementos sonoros</b>, organizados em <i>{numColecoes} coleções</i>.</p>
+          <p>Atualmente o BSA está na versão 2.0 e conta com {quant ? <b>{quant} elementos sonoros</b> : 'elementos sonoros'}, organizados em <i>{numColecoes} coleções</i>.</p>
         </div>
         <div className='acordeao pt-10 pb-10'>
           <Janela grupo='inicio' titulo="Qual a intenção do projeto?">

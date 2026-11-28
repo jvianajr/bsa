@@ -84,7 +84,8 @@ export async function getStaticProps() {
     const peso = Math.log(p.n) / Math.log(Math.max(max, 2)) // 0 (1 som) a 1 (a mais usada)
     return { ...p, peso: Math.round(peso * 100) / 100 }
   })
-  return { props: { palavras }, revalidate: ATUALIZAR_A_CADA }
+  // sem palavras (Freesound sem responder): tenta de novo em 1 minuto
+  return { props: { palavras }, revalidate: palavras.length ? ATUALIZAR_A_CADA : 60 }
 }
 
 // Movimento: cada palavra flutua devagar (CSS); com o mouse, as vizinhas se afastam um pouco.
