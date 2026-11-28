@@ -1,4 +1,4 @@
-import Head from 'next/head'
+import Seo from '../components/Seo'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import Form from '../components/Form'
@@ -14,11 +14,7 @@ import Cabecalho from '../components/Cabecalho'
 export default function Contato() {
   return (
     <>
-      <Head>
-        <title>Contato | Banco Sonoro Amazônico</title>
-        <meta name="keywords" content="amazonia som arte-sonora paisagem paisaje landscape amazon soundart sound sonido"></meta>
-        <meta name="description" content="inserir descrição da página"></meta>
-      </Head>
+      <Seo titulo="Contato" descricao="Fale com o Banco Sonoro Amazônico: ideias, parcerias, usos comerciais dos sons e outras questões." caminho="/contato" />
       <div className='container'>
       <Cabecalho titulo="Contato" subtitulo="Ideias, questões e assuntos diversos: escreva pelo formulário abaixo." />
       <div className='pilha g-5 pb-10'>

@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
-import Head from 'next/head'
+import Seo from '../components/Seo'
 import NextLink from 'next/link'
 import { buscarSonsEDownloads, ATUALIZAR_A_CADA } from '../lib/freesound'
 import { rotuloDaTag, tagNaNuvem } from '../lib/sons'
 import Cabecalho from '../components/Cabecalho'
+import ListaDeSons from '../components/ListaDeSons'
 
 // Nuvem de palavras-chave: cada palavra em português, num tamanho proporcional
 // ao número de sons que a usam. Cada palavra leva à página dos seus sons.
@@ -137,10 +138,103 @@ function useNuvemViva(ref, faixas) {
   }, [ref, faixas])
 }
 
+// Janela que abre por cima da Nuvem com os sons de uma palavra (sem sair da página).
+// Combinar até 3 palavras: no topo, "+ combinar palavra-chave" minimiza a janela e mostra a nuvem; a próxima palavra
+// clicada entra na combinação e a janela volta, mostrando só os sons que têm todas. Clicar numa palavra-chave de um som
+// também a acrescenta. Usa o <dialog> do navegador: fecha com Esc, com o botão "fechar" ou clicando fora.
+const MAX_PALAVRAS = 3
+function JanelaPalavra({ palavras, visivel, aoFechar, aoMudar, aoCombinar }) {
+  const ref = useRef(null)
+  const minimizando = useRef(false)
+  const [dados, setDados] = useState(null)
+  const [erro, setErro] = useState(null)
+  const chave = palavras.map((p) => p.tag).join(',')
+  useEffect(() => { // mostra ou minimiza a janela
+    const d = ref.current
+    if (!d || !chave) return
+    if (visivel && !d.open) d.showModal()
+    if (!visivel && d.open) { minimizando.current = true; d.close() }
+  }, [visivel, chave])
+  useEffect(() => { // busca os sons das palavras escolhidas
+    const d = ref.current
+    if (!chave) return
+    setDados(null); setErro(null)
+    if (d) d.scrollTop = 0
+    let vivo = true
+    fetch(`/api/sons-da-palavra?tag=${encodeURIComponent(chave)}`)
+      .then((r) => r.json())
+      .then((j) => { if (vivo) j.erro ? setErro(j.erro) : setDados(j) })
+      .catch(() => vivo && setErro('Não foi possível buscar os sons agora.'))
+    return () => { vivo = false }
+  }, [chave])
+  if (!palavras.length) return null
+  const n = dados?.sons?.length || 0
+  const acrescentar = (p) => {
+    if (palavras.some((x) => x.tag === p.tag) || palavras.length >= MAX_PALAVRAS) return
+    aoMudar([...palavras, p])
+  }
+  const tirar = (tag) => {
+    const resto = palavras.filter((x) => x.tag !== tag)
+    if (resto.length) aoMudar(resto); else ref.current.close()
+  }
+  const vagas = MAX_PALAVRAS - palavras.length
+  return (
+    <dialog ref={ref} className='janela-palavra' aria-labelledby='janela-palavra-titulo'
+      onClose={() => { if (minimizando.current) minimizando.current = false; else aoFechar() }}
+      onClick={(e) => { if (e.target === ref.current) ref.current.close() }}>
+      <div className='janela-palavra-topo'>
+        <h2 id='janela-palavra-titulo' className='janela-palavra-escolhidas'>
+          {palavras.map((p, i) => (
+            <span key={p.tag} className='palavra-escolhida'>
+              {i > 0 && <span className='cor-600' aria-hidden='true'>+ </span>}
+              <span className='palavra-titulo'>{p.rotulo}</span>
+              {palavras.length > 1 && (
+                <button type='button' className='tirar-palavra' onClick={() => tirar(p.tag)} aria-label={`tirar ${p.rotulo}`}>×</button>
+              )}
+            </span>
+          ))}
+          {Array.from({ length: vagas }, (_, k) => (
+            <button key={k} type='button' className='vaga-palavra' onClick={aoCombinar}>+ combinar palavra-chave</button>
+          ))}
+          {dados && <span className='cor-600 qtd-sons'>({n} {n === 1 ? 'som' : 'sons'})</span>}
+        </h2>
+        <button type='button' className='janela-palavra-fechar' onClick={() => ref.current.close()}>fechar ✕</button>
+      </div>
+      {!dados && !erro && <p className='t-sm cor-600'>carregando os sons…</p>}
+      {erro && <p className='t-sm cor-600'>{erro}</p>}
+      {dados && n === 0 && <p className='t-sm cor-600'>nenhum som tem todas essas palavras. Tire uma delas (×) para ampliar a busca.</p>}
+      {dados && n > 0 && <ListaDeSons key={chave} sons={dados.sons} mostrarColecao aoClicarTag={acrescentar} />}
+    </dialog>
+  )
+}
+
+// Faixa no rodapé enquanto a pessoa escolhe a próxima palavra na nuvem (janela minimizada).
+function FaixaCombinar({ palavras, aoVoltar, aoCancelar }) {
+  return (
+    <div className='faixa-combinar' role='status'>
+      <span>combinando <b>{palavras.map((p) => p.rotulo).join(' + ')}</b> + … clique em uma palavra para acrescentar</span>
+      <button type='button' onClick={aoVoltar}>voltar aos sons</button>
+      <button type='button' onClick={aoCancelar} aria-label='cancelar e fechar'>✕</button>
+    </div>
+  )
+}
+
 export default function Nuvem({ palavras }) {
   const ref = useRef(null)
   const total = palavras.length
   const [faixas, setFaixas] = useState(() => montarFaixas(palavras))
+  // palavra aberta na janela; o clique normal abre a janela, e Ctrl/Cmd+clique continua abrindo a página da palavra
+  const [abertas, setAbertas] = useState([])
+  const [combinando, setCombinando] = useState(false) // janela minimizada, esperando a próxima palavra
+  const abrir = (p) => (e) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return
+    e.preventDefault()
+    const nova = { tag: p.tag, rotulo: p.rotulo }
+    if (combinando) {
+      setAbertas((a) => (a.some((x) => x.tag === nova.tag) || a.length >= MAX_PALAVRAS ? a : [...a, nova]))
+      setCombinando(false)
+    } else setAbertas([nova])
+  }
   // modo de ver as palavras: em nuvem, em ordem alfabética ou das mais frequentes às menos frequentes
   const [modo, setModo] = useState('nuvem')
   const [semente, setSemente] = useState(1) // muda a cada clique em "aleatória", para sortear uma nova ordem
@@ -168,10 +262,7 @@ export default function Nuvem({ palavras }) {
   useNuvemViva(ref, faixas)
   return (
     <>
-      <Head>
-        <title>Nuvem | Banco Sonoro Amazônico</title>
-        <meta name="description" content="Nuvem de palavras-chave dos sons do Banco Sonoro Amazônico." />
-      </Head>
+      <Seo titulo="Nuvem" descricao="As palavras que descrevem os sons do Banco Sonoro Amazônico. Escolha uma palavra, ou combine até três, para escutar os sons." caminho="/nuvem" />
       <div className='container'>
         <Cabecalho titulo="nuvem" frase="(ou como se aproximar dos sons pela palavra)" uso="clique em uma palavra para escutar os sons, ou mude a forma de ver logo abaixo." />
         <div className='pilha g-6 pb-10'>
@@ -187,7 +278,7 @@ export default function Nuvem({ palavras }) {
               {lista.map((p) => (
                 <li key={p.tag}>
                   <NextLink href={`/tag/${encodeURIComponent(p.tag)}`} prefetch={false} className='link'
-                    title={`${p.n} ${p.n === 1 ? 'som' : 'sons'}`}>{p.rotulo}</NextLink>
+                    title={`${p.n} ${p.n === 1 ? 'som' : 'sons'}`} onClick={abrir(p)}>{p.rotulo}</NextLink>
                 </li>
               ))}
             </ul>
@@ -203,9 +294,10 @@ export default function Nuvem({ palavras }) {
                       href={`/tag/${encodeURIComponent(p.tag)}`}
                       prefetch={false}
                       title={`${p.n} ${p.n === 1 ? 'som' : 'sons'}`}
+                      onClick={abrir(p)}
                       style={{
                         fontSize: `${tamanho(p.peso).toFixed(2)}em`,
-                        fontWeight: p.peso > 0.6 ? 600 : 400,
+                        fontWeight: p.peso > 0.6 ? 600 : 450,
                         '--cor': p.peso > 0.6 ? '#1A202C' : p.peso > 0.3 ? '#2D3748' : '#5E6A7D',
                         // ritmo próprio de cada palavra: duração de 5 a 9 s, começando em pontos diferentes
                         '--dur': `${5 + (h % 400) / 100}s`,
@@ -220,6 +312,11 @@ export default function Nuvem({ palavras }) {
               </div>
             ))}
           </div>
+          <JanelaPalavra palavras={abertas} visivel={!combinando} aoFechar={() => setAbertas([])} aoMudar={setAbertas}
+            aoCombinar={() => setCombinando(true)} />
+          {combinando && abertas.length > 0 && (
+            <FaixaCombinar palavras={abertas} aoVoltar={() => setCombinando(false)} aoCancelar={() => { setCombinando(false); setAbertas([]) }} />
+          )}
           <p className='t-xs cor-600'>{total} palavras-chave em português. Os sons também têm palavras-chave em inglês, que aparecem junto de cada som.</p>
         </div>
       </div>

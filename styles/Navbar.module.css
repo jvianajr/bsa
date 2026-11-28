@@ -135,3 +135,41 @@
 .link_items a, .menu_celular a, .botao_menu { text-transform: lowercase; }
 .link_items a { font-weight: 450; } /* um pouco mais de força no menu (27/11; era 400) */
 .escuro a:focus-visible, .escuro button:focus-visible { outline-color: #fff; } /* sobre o espectrograma escuro, contorno branco */
+
+/* logo com degradê (28/11): as cores do fundo das páginas (lib/visual.js) dentro das letras,
+   subindo e descendo devagar. A imagem continua lá (para o leitor de tela), só fica invisível. */
+.logo_sombra { display: inline-block; filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35)); }
+.logo_degrade {
+    display: inline-block; vertical-align: top;
+    background-image: linear-gradient(180deg, #FFFFE9 0%, #DBFFF8 25%, #F8F1FF 50%, #DBFFF8 75%, #FFFFE9 100%);
+    background-size: 100% 400%;
+    -webkit-mask: url('/images/bsa_400px.png') center / 100% 100% no-repeat;
+    mask: url('/images/bsa_400px.png') center / 100% 100% no-repeat;
+}
+.logo_degrade img { opacity: 0; display: block; }
+@media (prefers-reduced-motion: no-preference) {
+    .logo_degrade { animation: logo_flutua 9s ease-in-out infinite alternate; }
+}
+@keyframes logo_flutua {
+    from { background-position: 50% 0%; }
+    to   { background-position: 50% 100%; }
+}
+
+/* topo com as cores do fundo das páginas (28/11, experimento): uma camada com o degradê
+   amarelo / verde-água / lilás tinge o espectrograma e desliza devagar.
+   Para desligar, apague este bloco. */
+.escuro { position: relative; isolation: isolate; }
+.escuro::before {
+    content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    /* as mesmas famílias do fundo (amarelo, verde-água e lilás). Em "multiply" a cor entra só nas partes
+       claras do espectrograma (os traços), e as partes escuras continuam escuras: a cor fica dentro da imagem */
+    background-image: linear-gradient(180deg, #FAF089 0%, #81E6D9 20%, #D6BCFA 40%, #FAF089 60%, #81E6D9 80%, #D6BCFA 100%);
+    background-size: 100% 300%; /* 28/11: faixas horizontais que sobem e descem */
+    mix-blend-mode: multiply; /* 28/11: soft-light e overlay foram testados; ficou o multiply */
+    opacity: 1;
+}
+.escuro > * { position: relative; }
+@media (prefers-reduced-motion: no-preference) {
+    .escuro::before { animation: topo_desliza 18s ease-in-out infinite alternate; }
+}
+@keyframes topo_desliza { from { background-position: 50% 0%; } to { background-position: 50% 100%; } }

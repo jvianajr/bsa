@@ -20,7 +20,8 @@ function TituloDoSom({ nome }) {
   return <span className='titulo-som'><b>{m[1]}</b><span lang='en'>{m[2]}</span></span>
 }
 
-export default function ListaDeSons({ sons, mostrarColecao = false }) {
+// aoClicarTag (opcional): em vez de abrir a página da tag, chama esta função (usado na janela da Nuvem)
+export default function ListaDeSons({ sons, mostrarColecao = false, aoClicarTag }) {
   // O player do Freesound só é carregado quando o som é aberto pela primeira vez.
   // Depois disso ele continua carregado, então o som segue tocando mesmo se a janela for fechada.
   const [abertos, setAbertos] = useState(() => new Set())
@@ -82,7 +83,8 @@ export default function ListaDeSons({ sons, mostrarColecao = false }) {
             {som.ficha && <p className='t-xs cor-600 pb-1 ficha-som'>{som.ficha}</p>}
             <div className='tags'>
               {som.tags.map(({ tag, rotulo }) => (
-                <Link key={tag} href={`/tag/${encodeURIComponent(tag)}`} prefetch={false} className='tag'>{rotulo}</Link>
+                <Link key={tag} href={`/tag/${encodeURIComponent(tag)}`} prefetch={false} className='tag'
+                  onClick={aoClicarTag ? (e) => { if (e.metaKey || e.ctrlKey || e.shiftKey) return; e.preventDefault(); aoClicarTag({ tag, rotulo }) } : undefined}>{rotulo}</Link>
               ))}
             </div>
             {som.descricao && <p className='t-xs cor-600 pt-4 quebra-linhas'>{som.descricao}</p>}

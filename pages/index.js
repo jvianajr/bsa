@@ -1,9 +1,9 @@
-import Head from 'next/head'
+import Seo from '../components/Seo'
 import Link from 'next/link'
 import Image from 'next/image'
+import FaixaObra from '../components/FaixaObra'
 import Logos from '../components/Logos'
 import Newsletter from '../components/Newsletter'
-import BichinhosAnimados from '../components/BichinhosAnimados'
 import SomDeExemplo from '../components/SomDeExemplo'
 
 import { buscarColecoesVisiveis, buscarSonsEDownloads, ATUALIZAR_A_CADA } from '../lib/freesound'
@@ -30,18 +30,51 @@ export async function getStaticProps() {
 
 const LICENCA_URL = 'https://creativecommons.org/licenses/by-nc/4.0/deed.pt_BR'
 
+// Dados estruturados para os buscadores: o site e o acervo (schema.org)
+const DADOS_ESTRUTURADOS = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://www.bancosonoroamazonico.com.br/#site",
+      "name": "Banco Sonoro Amazônico",
+      "url": "https://www.bancosonoroamazonico.com.br/",
+      "inLanguage": "pt-BR"
+    },
+    {
+      "@type": "Collection",
+      "@id": "https://www.bancosonoroamazonico.com.br/#acervo",
+      "name": "Banco Sonoro Amazônico",
+      "url": "https://www.bancosonoroamazonico.com.br/",
+      "description": "Acervo de sons gravados na Amazônia, para escutar, baixar e recriar.",
+      "inLanguage": "pt-BR",
+      "creator": {
+        "@type": "Person",
+        "name": "José Viana"
+      },
+      "license": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "sameAs": [
+        "https://freesound.org/people/jose.viana/",
+        "https://instagram.com/bancosonoroamazonico"
+      ]
+    }
+  ]
+}
+
 export default function Home({ quant, numColecoes, downloads, visitas, idsDosSons }) {
   return (
     <>
-      <Head>
-        <title>Banco Sonoro Amazônico</title>
-        <meta name="keywords" content="amazonia som arte-sonora paisagem paisaje landscape amazon soundart sound sonido"></meta>
-        <meta name="description" content="Uma coleção de sons da paisagem amazônica, escute, baixe, crie e compartilhe."></meta>
-      </Head>
+      <Seo descricao="Acervo de sons gravados na Amazônia, entre rios, ilhas, cidades, estradas, florestas e garimpos, para escutar, baixar e recriar sob licença Creative Commons CC BY-NC 4.0." caminho="/">
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(DADOS_ESTRUTURADOS) }} />
+        </Seo>
       <div className='container'>
         <div className='pilha g-4 pb-5'>
           <Cabecalho titulo="Uma coleção de sons" subtitulo={<>para escutar (<i>com fones de ouvido</i>) e fazer ecoar.</>} pb="12" />
-          <BichinhosAnimados />
+          {/* 28/11: faixa com um espectrograma (Tambor de crioula; antes, Recado da Cigarra) no lugar do desenho circular (BichinhosAnimados) */}
+          <FaixaObra faixa='/images/tambor-de-crioula.jpg' faixaLargura={1440} faixaAltura={277}
+            inteira='/images/tambor-de-crioula-inteiro.jpg' inteiraLargura={2000} inteiraAltura={1013}
+            alt='Espectrograma do tambor de crioula no Centro de São Luís: faixas verticais claras e escuras, as batidas dos tambores, com desenhos miúdos das vozes entre elas'
+            titulo='Tambor de crioula no Centro de São Luis' serie='Waveform' ano='2026' autoria='José Viana · Banco Sonoro Amazônico' />
           <p className='pt-10'>O <b>Banco Sonoro Amazônico</b> é um projeto de construção e partilha de sons, registrados a partir de experiências de deslocamento, de convívio e de escuta das múltiplas realidades da Amazônia.</p>
           <p>Os sons são disponibilizados gratuitamente para usos não comerciais pela plataforma <i>freesound.org</i>, sob licença <i>Creative Commons</i> CC BY-NC 4.0.</p>
           <p>Atualmente o BSA está na versão 2.0 e conta com <b> {quant} elementos sonoros</b>, organizados em <i>{numColecoes} coleções</i>.</p>

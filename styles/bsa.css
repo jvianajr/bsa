@@ -32,7 +32,7 @@ html { line-height: 1.5; -webkit-text-size-adjust: 100%; font-family: var(--font
 /* computador: todas as fontes (e medidas em rem) 7% maiores */
 @media (min-width: 48em) { html { font-size: 107%; } }
 
-body { margin: 0; color: var(--texto); background: #fff; font-family: var(--fonte); line-height: 1.5; }
+body { margin: 0; color: var(--texto); background: #fff; font-family: var(--fonte); font-weight: 450; line-height: 1.5; } /* texto normal 450 (28/11; era 400) */
 h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd, ul, ol { margin: 0; }
 h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
 ul, ol { list-style: none; padding: 0; }
@@ -140,6 +140,7 @@ textarea.campo { height: auto; min-height: 5rem; padding-block: .5rem; line-heig
 .aviso-erro::before { content: '!'; background: #E53E3E; }
 
 /* ---------- janelas que abrem e fecham (acordeão) ---------- */
+.janela { background: rgba(255, 255, 255, 0.35); } /* 28/11: véu branco leve atrás de cada acordeão */
 .acordeao > .janela { border-top: 1px solid var(--cinza-200); }
 .acordeao > .janela:last-child { border-bottom: 1px solid var(--cinza-200); }
 .janela > summary {
@@ -166,7 +167,9 @@ textarea.campo { height: auto; min-height: 5rem; padding-block: .5rem; line-heig
 /* variações */
 .janela-alta > summary { padding-block: 1rem; }
 .janela-alta > .conteudo { padding-bottom: 1.5rem; }
-.janela-alinhada > summary { padding-inline: 0; }
+.janela-alinhada { margin-inline: -.75rem; } /* o véu branco passa um pouco da margem; o título continua alinhado ao texto */
+.janela-alinhada > summary { padding-inline: .75rem; }
+.janela-alinhada > .conteudo { padding-inline: 1.75rem; }
 .janela-alinhada > summary:hover { background: transparent; color: var(--amarelo-escuro); }
 .janela-alinhada > .conteudo { padding-bottom: 2rem; }
 .janela-som > .conteudo { padding-bottom: 1rem; }
@@ -185,10 +188,33 @@ textarea.campo { height: auto; min-height: 5rem; padding-block: .5rem; line-heig
 .tag:hover { color: var(--amarelo-mais-escuro); text-decoration: underline; }
 
 /* ---------- grade de coleções ---------- */
-.grade-colecoes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.25rem; width: 100%; }
-@media (min-width: 48em) { .grade-colecoes { grid-template-columns: repeat(3, 1fr); } }
-.colecao-item { display: block; width: 100%; padding: .75rem; text-align: center; border-radius: var(--raio); transition: background .2s, box-shadow .2s; }
-.colecao-item:hover { background: #fff; box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06); }
+.grade-colecoes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; width: 100%; }
+@media (min-width: 48em) { .grade-colecoes { grid-template-columns: repeat(4, 1fr); gap: 1.25rem; } } /* 4 colunas (27/11; eram 3) */
+.colecao-item { display: block; width: 100%; padding: .5rem; text-align: center; border-radius: var(--raio); transition: background .2s, box-shadow .2s; }
+.colecao-item img { width: 100%; max-width: 170px; height: auto; }
+.colecao-item p { margin-top: .25rem; font-size: .9375rem; }
+/* página de coleções (27/11): grade mais larga que o texto, mais espaço e ícones desalinhados em ziguezague */
+@media (min-width: 48em) {
+  .grade-larga { margin-inline: calc(50% - min(600px, 50vw - 24px)); }
+  .grade-solta { gap: .5rem 1.75rem; padding-bottom: 10rem; } /* 27/11: linhas coladas; as colunas descem em degraus (ver GradeColecoes) */
+  .grade-solta .colecao-item { transform: translate(var(--dx, 0), var(--dy, 0)); }
+}
+.colecao-item:hover { background: none; box-shadow: none; } /* 27/11: sem o quadrado branco; o desenho fica verde */
+.colecao-icone { position: relative; display: block; width: 100%; max-width: 170px; margin: 0 auto; }
+.colecao-icone::after { content: ''; position: absolute; inset: 0;
+  /* 28/11: o mesmo jogo de cores do fundo e do logo (amarelo, verde-água, lilás), em tons fortes
+     para o desenho não sumir sobre o fundo claro; as cores flutuam na vertical como no logo */
+  background-image: linear-gradient(180deg, #B7791F 0%, #2C7A7B 30%, #6B46C1 55%, #2C7A7B 80%, #B7791F 100%);
+  background-size: 100% 400%; background-position: 50% 0%;
+  -webkit-mask: var(--icone) center / contain no-repeat; mask: var(--icone) center / contain no-repeat;
+  opacity: 0; transition: opacity .2s; pointer-events: none; }
+.colecao-icone img { transition: opacity .2s; }
+.colecao-item:hover .colecao-icone::after, .colecao-item:focus-visible .colecao-icone::after { opacity: 1; }
+@media (prefers-reduced-motion: no-preference) {
+  .colecao-item:hover .colecao-icone::after, .colecao-item:focus-visible .colecao-icone::after { animation: icone_flutua 4s ease-in-out infinite alternate; }
+}
+@keyframes icone_flutua { from { background-position: 50% 0%; } to { background-position: 50% 100%; } }
+.colecao-item:hover .colecao-icone img, .colecao-item:focus-visible .colecao-icone img { opacity: 0; }
 .colecao-item img { margin: 0 auto; object-fit: contain; }
 
 /* grade de dois cartões (Ecos) */
@@ -240,15 +266,15 @@ footer .icone { width: 22px; height: 22px; } /* ícones do rodapé, 10% maiores 
 /* ---------- fontes: IBM Plex Sans nos textos, IBM Plex Mono nos dados (carregadas em lib/fontes.js) ---------- */
 .raiz { --fonte: var(--f-plex-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
         --fonte-dados: var(--f-plex-mono), ui-monospace, Menlo, monospace; font-family: var(--fonte); }
-.tags, .acoes-som, .ficha-som { font-family: var(--fonte-dados); }
+.tags, .acoes-som, .ficha-som { font-family: var(--fonte-dados); font-weight: 400; } /* a Plex Mono só tem 400 e 500 */
 
 /* cabeçalho em frase (experimento): uma linha, minúsculas, no tamanho do texto normal do site; palavra-título em negrito médio */
-.cabecalho-frase h1 { font-size: 1rem; font-weight: 400; line-height: 1.5; }
+.cabecalho-frase h1 { font-size: 1rem; font-weight: 450; line-height: 1.5; }
 .cabecalho-frase .palavra-titulo { font-weight: 500; }
 .cabecalho .cabecalho-uso { font-size: .875rem; color: var(--cinza-600); padding-top: .25rem; } /* linha de uso, menor e em cinza */
 
 /* título do som nos acordeons: português em negrito médio (500, como era), o resto no peso normal */
-.titulo-som { display: block; font-weight: 400; }
+.titulo-som { display: block; font-weight: 450; }
 .titulo-som b { font-weight: 500; }
 
 /* links no meio dos textos (27/11): verde, que fica preto ao passar o mouse, para não se confundir com negrito.
@@ -280,4 +306,43 @@ footer .icone { width: 22px; height: 22px; } /* ícones do rodapé, 10% maiores 
 
 /* lista com marcadores no meio do texto (página de acessibilidade) */
 .lista-simples { list-style: disc; padding-left: 1.25rem; display: flex; flex-direction: column; gap: .35rem; }
-.peso-normal { font-weight: 400; } /* trecho sem negrito dentro de um título (ex.: o ano nas etapas da Ficha técnica) */
+.peso-normal { font-weight: 450; } /* trecho sem negrito dentro de um título (ex.: o ano nas etapas da Ficha técnica) */
+
+/* janela (popup) com os sons de uma palavra da Nuvem */
+.janela-palavra { width: min(92vw, 860px); max-height: 85vh; padding: 1.25rem 1.5rem 1.5rem; border: 0; border-radius: 10px;
+  background: #FCFCF7; color: var(--texto); box-shadow: 0 12px 40px rgba(0,0,0,.25); overflow: auto; }
+.janela-palavra::backdrop { background: rgba(26, 32, 44, .45); backdrop-filter: blur(2px); }
+.janela-palavra-topo { position: sticky; top: -1.25rem; z-index: 1; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+  margin: -1.25rem -1.5rem 1rem; padding: 1.25rem 1.5rem .75rem; background: #FCFCF7; border-bottom: 1px solid var(--cinza-200); }
+.janela-palavra-topo h2 { font-size: 1rem; font-weight: 450; }
+.janela-palavra-fechar { font-size: .875rem; color: var(--cinza-700); padding: .2rem .5rem; border-radius: 4px; white-space: nowrap; }
+.janela-palavra-fechar:hover { background: rgba(0,0,0,.06); color: var(--texto); }
+.janela-palavra-escolhidas { display: flex; flex-wrap: wrap; align-items: baseline; gap: .1rem .5rem; }
+.palavra-escolhida { display: inline-flex; align-items: baseline; gap: .2rem; }
+.tirar-palavra { font-size: .95rem; line-height: 1; color: var(--cinza-600); padding: 0 .25rem; border-radius: 3px; }
+.tirar-palavra:hover { background: rgba(0,0,0,.07); color: var(--texto); }
+.vaga-palavra { font-size: .8rem; color: var(--verde-escuro); border: 1px dashed var(--verde-escuro); border-radius: 4px; padding: .1rem .5rem; }
+.vaga-palavra:hover { background: rgba(44, 122, 123, .08); }
+.qtd-sons { margin-left: .25rem; }
+.faixa-combinar { position: fixed; left: 50%; bottom: 16px; translate: -50% 0; z-index: 1500; display: flex; align-items: center; gap: .75rem;
+  max-width: 94vw; padding: .6rem .9rem; border-radius: 8px; background: rgba(26, 32, 44, .94); color: #fff; font-size: .875rem;
+  box-shadow: 0 6px 24px rgba(0,0,0,.25); }
+.faixa-combinar b { font-weight: 550; }
+.faixa-combinar button { color: #fff; padding: .2rem .55rem; border-radius: 4px; border: 1px solid rgba(255,255,255,.35); white-space: nowrap; }
+.faixa-combinar button:hover { background: rgba(255,255,255,.12); }
+
+/* faixa com uma obra na página inicial (28/11): espectrograma de uma obra (28/11: Tambor de crioula) */
+.faixa-obra { margin: 0; width: 100%; } /* na largura do texto (28/11) */
+.faixa-obra-abrir { display: block; width: 100%; cursor: zoom-in; }
+.faixa-obra img { display: block; width: 100%; height: auto; border-radius: 2px; transition: opacity .2s; }
+.faixa-obra-abrir:hover img { opacity: .85; }
+.faixa-obra figcaption { margin-top: .4rem; font-size: .75rem; color: var(--texto); text-align: right; } /* tamanho e cor do texto do rodapé (t-xs) */
+.faixa-obra-link { color: var(--verde-escuro); font-size: inherit; margin-left: .35rem; transition: color .2s; }
+.faixa-obra-link:hover { color: var(--texto); }
+/* popup grande da obra */
+.janela-obra { width: min(94vw, 1280px); max-height: 92vh; padding: 2.75rem 1.25rem 1.25rem; border: 0; border-radius: 10px;
+  background: #FCFCF7; color: var(--texto); box-shadow: 0 12px 40px rgba(0,0,0,.3); overflow: auto; }
+.janela-obra::backdrop { background: rgba(26, 32, 44, .6); backdrop-filter: blur(2px); }
+.janela-obra img { display: block; width: 100%; height: auto; }
+.janela-obra-fechar { position: absolute; top: .6rem; right: .8rem; }
+.janela-obra-texto { margin-top: .9rem; }

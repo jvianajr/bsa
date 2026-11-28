@@ -1,4 +1,4 @@
-import Head from 'next/head'
+import Seo from '../components/Seo'
 import Cabecalho from '../components/Cabecalho'
 import Janela from '../components/Janela'
 import ListaDeSons from '../components/ListaDeSons'
@@ -26,10 +26,7 @@ export default function Mapa({ lugares = [], falhou = false }) {
   const src = `https://freesound.org/embed/geotags_box/iframe/?c_lat=${CENTRO.lat}&c_lon=${CENTRO.lon}&z=${CENTRO.zoom}&username=jose.viana`
   return (
     <>
-      <Head>
-        <title>Mapa | Banco Sonoro Amazônico</title>
-        <meta name="description" content="Mapa dos lugares onde os sons do Banco Sonoro Amazônico foram gravados." />
-      </Head>
+      <Seo titulo="Mapa" descricao="Mapa e lista por lugar dos sons do Banco Sonoro Amazônico, gravados em cidades, comunidades e estradas do Pará e do Maranhão." caminho="/mapa" />
       <div className='container'>
         <Cabecalho titulo="mapa" frase="(ou como se aproximar dos sons pela sua referência geoespacial)" uso="arraste o mapa com o mouse, use a rodinha ou os botões + e − para aproximar e clique em um ponto para ouvir. Logo abaixo do mapa, os mesmos sons aparecem em lista, por lugar." />
         <div className='pilha g-5 pb-10'>

@@ -1,4 +1,4 @@
-import Head from 'next/head'
+import Seo from '../../components/Seo'
 import NextLink from 'next/link'
 import ListaDeSons from '../../components/ListaDeSons'
 import { buscarSonsPorTag, ATUALIZAR_A_CADA } from '../../lib/freesound'
@@ -22,14 +22,12 @@ export async function getStaticProps({ params }) {
   }
 }
 
-export default function PaginaDaTag({ rotulo, sons }) {
+export default function PaginaDaTag({ tag, rotulo, sons }) {
   const n = sons.length
   return (
     <>
-      <Head>
-        <title>{`${rotulo} | Banco Sonoro Amazônico`}</title>
-        <meta name="description" content={`Sons do Banco Sonoro Amazônico com a palavra-chave "${rotulo}".`} />
-      </Head>
+      <Seo titulo={rotulo} caminho={`/tag/${encodeURIComponent(tag)}`}
+        descricao={`${sons.length} ${sons.length === 1 ? 'som' : 'sons'} do Banco Sonoro Amazônico com a palavra-chave "${rotulo}".`} />
       <div className='container'>
         <div className='pilha g-6'>
           <Cabecalho titulo={rotulo} subtitulo={`${n === 1 ? 'Um elemento sonoro tem' : `${n} elementos sonoros têm`} esta palavra-chave.`} pb='2' />

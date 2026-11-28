@@ -1,4 +1,4 @@
-import Head from 'next/head'
+import Seo from '../components/Seo'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -30,11 +30,7 @@ export async function getServerSideProps() {
 export default function Mediacao({ data }) {
     return (
     <>
-      <Head>
-        <title>Mediação | Banco Sonoro Amazônico</title>
-        <meta name="keywords" content="amazonia som arte-sonora paisagem paisaje landscape amazon soundart sound sonido"></meta>
-        <meta name="description" content="O Banco Sonoro Amazônico é uma coleção digital de sons coletados na paisagem, disponibilizados gratuitamente através da plataforma freesound.org, sob licença creative commons."></meta>
-      </Head>
+      <Seo titulo="Mediação" descricao="Tutoriais, conversas e materiais educativos para conhecer o Banco Sonoro Amazônico e usar os sons em outras criações." caminho="/mediacao" />
       <div className='container'>
       <Cabecalho titulo="mediação" frase="(ou meios para conhecer mais sobre o projeto)" uso="assista aos vídeos e conheça os materiais do projeto." />
       <div className='pilha g-2'>

@@ -1,4 +1,4 @@
-import Head from 'next/head'
+import Seo from '../components/Seo'
 import Image from 'next/image'
 import Logos from '../components/Logos'
 import Cabecalho from '../components/Cabecalho'
@@ -35,24 +35,23 @@ const AGRADECIMENTOS_CARAJAS = [
 export default function FichaTecnica() {
   return (
     <>
-      <Head>
-        <title>Ficha técnica | Banco Sonoro Amazônico</title>
-        <meta name="keywords" content="amazonia som arte-sonora paisagem paisaje landscape amazon soundart sound sonido jose-viana amazonica"></meta>
-        <meta name="description" content="Ficha técnica do Banco Sonoro Amazônico: créditos, financiamento e agradecimentos de cada etapa do projeto."></meta>
-      </Head>
+      <Seo titulo="Ficha técnica" descricao="Créditos, financiamento e agradecimentos de cada etapa do Banco Sonoro Amazônico: Etapa 1 (2022) e Etapa Carajás (2026)." caminho="/ficha-tecnica" />
       <div className='container'>
         <Cabecalho titulo="ficha técnica" frase="(créditos, financiamento e agradecimentos de cada etapa do projeto)" uso="abra cada etapa para ver os créditos e os agradecimentos." />
         <div className='pilha g-2'>
-          <p>O <b>Banco Sonoro Amazônico</b> é um projeto de construção e partilha de sons, registrados a partir de experiências de deslocamento, de convívio e de escuta das múltiplas realidades da Amazônia.</p>
-          <p>Os sons são disponibilizados gratuitamente para usos não comerciais pela plataforma <i>freesound.org</i>, sob licença <i>Creative Commons</i> CC BY-NC 4.0.</p>
-
-          <div className='pt-10'>
-            <Credito titulo="concepção, escuta e desenvolvimento"><p>José Viana</p></Credito>
-            <Credito titulo="desenvolvimento web"><p>Estúdio Curica</p></Credito>
-            <Credito titulo="Banco Sonoro Amazônico"><p>Versão 2.0, 2026.</p></Credito>
+          <div className='acordeao'>
+            <Etapa titulo={<>Banco Sonoro Amazônico <span className='peso-normal'>| v 2.0, 2026.</span></>}>
+              <p>O Banco Sonoro Amazônico é um projeto de construção e partilha de sons, registrados a partir de experiências de deslocamento, de convívio e de escuta das múltiplas realidades da Amazônia.</p>
+            </Etapa>
           </div>
 
-          <div className='acordeao pt-4 pb-10'>
+          <div className='pt-8'>
+            <Credito titulo="concepção, escuta e desenvolvimento"><p>José Viana</p></Credito>
+            <Credito titulo="desenvolvimento web"><p>Estúdio Curica</p></Credito>
+          </div>
+
+          <h2 className='titulo titulo-xs pt-6'>créditos e agradecimentos de cada etapa</h2>
+          <div className='acordeao pt-2 pb-10'>
             <Etapa titulo={<><span className='peso-normal'>2022.</span> Banco Sonoro Amazônico - Etapa 1: Imersão, criação e partilha</>}>
               <p className='pb-5'>Projeto financiado pelo <b>Prêmio Preamar de Cultura e Arte 2022</b> (Edital nº 001/2022, Modalidade 2), da Secretaria de Cultura do Governo do Estado do Pará - SECULT/PA.</p>
 
@@ -71,10 +70,9 @@ export default function FichaTecnica() {
             <Etapa titulo={<><span className='peso-normal'>2026.</span> Banco Sonoro Amazônico - Etapa Carajás</>}>
               <p className='pb-5'>Projeto financiado pelo <b>Edital nº 002/2025 - Cultura Digital</b>, da Política Nacional Aldir Blanc de Fomento à Cultura - PNAB 2025, Governo Federal e Governo do Estado do Pará.</p>
 
-              <Credito titulo="produção local">
-                <p>Marabá: Amanda Gondim, Margareth Gondim e Thiago Cruz</p>
-                <p>Parauapebas: Deyvid Roger</p>
-              </Credito>
+              <Credito titulo="produção local"><p>Amanda Gondim</p></Credito>
+              <Credito titulo="apoio local"><p>Margareth Gondim e Thiago Cruz</p></Credito>
+              <Credito titulo="assistência"><p>Deyvid Roger</p></Credito>
 
               <Credito titulo="vídeo de divulgação"><p>Lucas Domires</p></Credito>
 

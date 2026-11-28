@@ -1,4 +1,4 @@
-import Head from 'next/head'
+import Seo from '../components/Seo'
 import GradeColecoes from '../components/GradeColecoes'
 import { buscarColecoesVisiveis, ATUALIZAR_A_CADA } from '../lib/freesound'
 import Cabecalho from '../components/Cabecalho'
@@ -13,14 +13,10 @@ export async function getStaticProps() {
 export default function Colecoes({ colecoes }) {
   return (
     <>
-      <Head>
-        <title>Coleções | Banco Sonoro Amazônico</title>
-        <meta name="keywords" content="amazonia som arte-sonora paisagem paisaje landscape amazon soundart sound sonido collections praia rio ilha cidade bairro casa beira porto sitio igarape"></meta>
-        <meta name="description" content="O Banco Sonoro Amazônico é uma coleção digital de sons coletados na paisagem, disponibilizados gratuitamente através da plataforma freesound.org, sob licença creative commons."></meta>
-      </Head>
+      <Seo titulo="Coleções" descricao="Os sons do Banco Sonoro Amazônico organizados pelos lugares e situações em que foram escutados: ilha, praia, beira, sítio, cidade, trem, garimpo, feira e outras coleções." caminho="/colecoes" />
       <div className='container'>
         <Cabecalho titulo="coleções" frase="(ou como categorizar o mundo atento às armadilhas da categorização)." uso="escolha uma coleção e dê play nos sons para escutar." />
-        <div className='pb-10'><GradeColecoes colecoes={colecoes} /></div>
+        <div className='pb-10 grade-larga'><GradeColecoes colecoes={colecoes} solta /></div>
       </div>
     </>
   )

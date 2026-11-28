@@ -1,4 +1,4 @@
-import Head from 'next/head'
+import Seo from '../components/Seo'
 import Image from 'next/image'
 import FormProjeto from '../components/FormProjeto'
 import projetos from '../lib/projetos'
@@ -7,10 +7,7 @@ import Cabecalho from '../components/Cabecalho'
 export default function Ecos() {
   return (
     <>
-      <Head>
-        <title>Ecos | Banco Sonoro Amazônico</title>
-        <meta name="description" content="Ecos: criações feitas com sons do Banco Sonoro Amazônico." />
-      </Head>
+      <Seo titulo="Ecos" descricao="Músicas, filmes, instalações, pesquisas e outras criações feitas com os sons do Banco Sonoro Amazônico. Envie a sua." caminho="/ecos" />
       <div className='container'>
         <Cabecalho titulo="ecos" frase="(ou modos para descobrir as outras criações que daqui se fizeram ecoar)" uso="conheça as criações feitas com os sons ou envie a sua." />
         <div className='pilha g-6 pb-10'>

@@ -1,4 +1,4 @@
-import Head from 'next/head'
+import Seo from '../components/Seo'
 import Link from 'next/link'
 import Cabecalho from '../components/Cabecalho'
 
@@ -6,10 +6,7 @@ import Cabecalho from '../components/Cabecalho'
 export default function InscricaoConfirmada() {
   return (
     <>
-      <Head>
-        <title>Inscrição confirmada | Banco Sonoro Amazônico</title>
-        <meta name="robots" content="noindex" />
-      </Head>
+      <Seo titulo="Inscrição confirmada" caminho="/inscricao-confirmada" naoIndexar />
       <div className='container'>
         <Cabecalho titulo="Inscrição confirmada!" subtitulo="Obrigado por acompanhar o Banco Sonoro Amazônico. Você vai receber as novidades por e-mail." />
         <div className='pilha g-5 pb-10'>

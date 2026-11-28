@@ -1,3 +1,4 @@
+import Seo from '../components/Seo'
 import GradeColecoes from '../components/GradeColecoes'
 import ListaDeSons from '../components/ListaDeSons'
 import colecoes, { colecaoPorSlug } from '../lib/colecoes'
@@ -39,6 +40,8 @@ export async function getStaticProps({ params }) {
 export default function Colecao({ colecao, sons, infopack, colecoes }) {
   return (
     <>
+      <Seo titulo={infopack.name} caminho={`/${colecao.slug}`}
+        descricao={`${infopack.name}: ${sons.length > 0 ? `${sons.length} sons` : 'sons'} do Banco Sonoro Amazônico${infopack.description ? `. ${infopack.description}` : ', gravados na Amazônia, para escutar e baixar.'}`.slice(0, 200)} />
       <div className='container'>
         <div className='pilha g-6'>
           <Cabecalho titulo={infopack.name} subtitulo={infopack.description || null} pb='2' />
@@ -53,7 +56,7 @@ export default function Colecao({ colecao, sons, infopack, colecoes }) {
           <h2 className='titulo pb-5'>
             Outras Coleções:
           </h2>
-          <GradeColecoes colecoes={colecoes} atual={colecao.slug} />
+          <div className='grade-larga'><GradeColecoes colecoes={colecoes} atual={colecao.slug} solta aleatoria /></div>
         </div>
       </div>
     </>

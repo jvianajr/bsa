@@ -66,8 +66,18 @@ export default function Navbar() {
     <header className={`${styles.topo} ${topo.classe}`} style={topo.fundo}>
       <div className={styles.logo}>
         <Link href="/" aria-label="Banco Sonoro Amazônico, página inicial">
-          <Image src="/images/bsa_400px.png" width="400" height="39" alt="Banco Sonoro Amazonico" priority
-            style={{ filter: topo.filtroLogo, maxWidth: '100%', height: 'auto' }} />
+          {topo.classe === styles.escuro ? (
+            // topo escuro: as letras do logo são preenchidas com o degradê do fundo das páginas, flutuando devagar
+            <span className={styles.logo_sombra}>
+              <span className={styles.logo_degrade}>
+                <Image src="/images/bsa_400px.png" width="400" height="39" alt="Banco Sonoro Amazonico" priority
+                  style={{ maxWidth: '100%', height: 'auto' }} />
+              </span>
+            </span>
+          ) : (
+            <Image src="/images/bsa_400px.png" width="400" height="39" alt="Banco Sonoro Amazonico" priority
+              style={{ filter: topo.filtroLogo, maxWidth: '100%', height: 'auto' }} />
+          )}
         </Link>
       </div>
 

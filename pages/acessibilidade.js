@@ -1,4 +1,4 @@
-import Head from 'next/head'
+import Seo from '../components/Seo'
 import Link from 'next/link'
 import Cabecalho from '../components/Cabecalho'
 
@@ -6,10 +6,7 @@ import Cabecalho from '../components/Cabecalho'
 export default function Acessibilidade() {
   return (
     <>
-      <Head>
-        <title>Acessibilidade | Banco Sonoro Amazônico</title>
-        <meta name="description" content="Estratégias de acessibilidade do site do Banco Sonoro Amazônico para leitores de tela e navegação por teclado." />
-      </Head>
+      <Seo titulo="Acessibilidade" descricao="Estratégias de acessibilidade do site do Banco Sonoro Amazônico para leitores de tela e navegação por teclado." caminho="/acessibilidade" />
       <div className='container'>
         <Cabecalho titulo="acessibilidade" frase="(ou como este site procura ser escutado por todas as pessoas)"
           uso="leia o que o site oferece e conte para nós se encontrar alguma barreira." />

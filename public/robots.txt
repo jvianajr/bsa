@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /inscricao-confirmada
+
+Sitemap: https://www.bancosonoroamazonico.com.br/sitemap.xml
