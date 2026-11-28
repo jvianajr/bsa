@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  // 28/11: as páginas que buscam todos os sons (início, mapa) podem passar de 60 s na montagem,
+  // quando o Freesound pede para esperar (limite por minuto). Damos até 5 minutos por página.
+  staticPageGenerationTimeout: 300,
   // endereços antigos que mudaram de nome
   async redirects() {
     return [
