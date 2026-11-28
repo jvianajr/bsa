@@ -31,7 +31,7 @@ export async function getStaticProps() {
       quant: semFreesound ? null : colecoes.reduce((total, c) => total + c.numSons, 0),
       numColecoes: colecoes.length,
     },
-    revalidate: semFreesound ? 60 : ATUALIZAR_A_CADA
+    revalidate: semFreesound ? 60 : 3600 // a página inicial continua de hora em hora (o texto dos números diz isso)
   }
 }
 
@@ -134,8 +134,8 @@ export default function Home({ quant, numColecoes, downloads, visitas, idsDosSon
         <div className='pilha g-4 pb-5 pt-10'>
           {(visitas > 0 || downloads > 0) && (
             <p className='centro t-sm'>
-              {visitas > 0 && <>Este site recebeu <b>{visitas.toLocaleString('pt-BR')} visitas</b> desde {VISITAS_DESDE}. </>}
-              {downloads > 0 && <>Ao todo, <b>{downloads.toLocaleString('pt-BR')} downloads</b> já foram feitos de elementos do Banco Sonoro Amazônico.</>}
+              {visitas > 0 && <>Este site está online desde 2022 e recebeu <b>{visitas.toLocaleString('pt-BR')} visitas</b> desde {VISITAS_DESDE}. </>}
+              {downloads > 0 && <>Ao todo, <b>{downloads.toLocaleString('pt-BR')} downloads</b> foram feitos de elementos do Banco Sonoro Amazônico.</>}
               {' '}Os números se atualizam de hora em hora.
             </p>
           )}
