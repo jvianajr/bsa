@@ -17,7 +17,7 @@ export async function getStaticProps() {
     colecoes = await buscarColecoesVisiveis()
   } catch (e) {
     // com o site no ar, o erro mantém a última versão boa; na montagem, a página sai sem os números
-    if (!EM_BUILD) throw e
+    if (!EM_BUILD && process.env.NODE_ENV === 'production') throw e // no localhost, abre mesmo sem o Freesound
     colecoes = colecoesDaLista(); semFreesound = true
   }
   // Se a contagem de downloads ou de visitas falhar, a página abre sem essas informações.

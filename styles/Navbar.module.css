@@ -173,3 +173,10 @@
     .escuro::before { animation: topo_desliza 18s ease-in-out infinite alternate; }
 }
 @keyframes topo_desliza { from { background-position: 50% 0%; } to { background-position: 50% 100%; } }
+
+/* menu escrito à mão (28/11, experimento): cada palavra é uma imagem usada como máscara,
+   pintada com a cor do texto do menu (branco no topo escuro) */
+.palavra_mao { display: inline-block; vertical-align: middle; background-color: currentColor;
+    -webkit-mask: var(--palavra) center / contain no-repeat; mask: var(--palavra) center / contain no-repeat; }
+.link_items:has(.palavra_mao) { align-items: center; }
+.link_items:has(.palavra_mao) a { display: inline-flex; align-items: center; padding: 4px 6px; border-bottom-color: transparent !important; } /* sem a linha embaixo ao passar o mouse (28/11) */

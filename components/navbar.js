@@ -22,14 +22,31 @@ const ESTILOS_TOPO = {
 
 // Itens do menu principal (computador).
 export const MENU = [
-  { href: '/', nome: 'Início' },
-  { href: '/colecoes', nome: 'Coleções' },
-  { href: '/mapa', nome: 'Mapa' },
-  { href: '/nuvem', nome: 'Nuvem' },
-  { href: '/mediacao', nome: 'Mediação' },
-  { href: '/ecos', nome: 'Ecos' },
-  { href: '/ficha-tecnica', nome: 'Ficha técnica' },
+  { href: '/', nome: 'Início', mao: ['inicio', 217, 79] },
+  { href: '/colecoes', nome: 'Coleções', mao: ['colecoes', 331, 88] },
+  { href: '/mapa', nome: 'Mapa', mao: ['mapa', 207, 60] },
+  { href: '/nuvem', nome: 'Nuvem', mao: ['nuvem', 266, 66] },
+  { href: '/mediacao', nome: 'Mediação', mao: ['mediacao', 339, 91] },
+  { href: '/ecos', nome: 'Ecos', mao: ['ecos', 159, 50] },
+  { href: '/ficha-tecnica', nome: 'Ficha técnica', mao: ['fichatecnica', 495, 72] },
 ]
+
+// Experimento (28/11): menu do computador com as palavras escritas à mão pelo autor
+// (imagens em public/images/menu, tiradas das fotos IMG_1701 a 1707). Para voltar ao texto, false.
+const MENU_A_MAO = true
+const ALTURA_LETRA = 1.15 // em em: altura de uma palavra de altura média (72 px no PNG)
+
+function PalavraAMao({ mao, nome }) {
+  const [arquivo, largura, altura] = mao
+  const h = (altura / 72) * ALTURA_LETRA
+  return (
+    <>
+      <span className='pular-leitor'>{nome}</span>
+      <span aria-hidden='true' className={styles.palavra_mao}
+        style={{ '--palavra': `url(/images/menu/menu-${arquivo}.png)`, height: `${h}em`, width: `${h * largura / altura}em` }} />
+    </>
+  )
+}
 
 // Também ficam no rodapé (como ícones); no celular aparecem por extenso no menu.
 export const MENU_RODAPE = [
@@ -87,7 +104,9 @@ export default function Navbar() {
           {MENU.map((item) => (
             <li key={item.href}>
               <Link href={item.href} className={ativo(item.href) ? styles.ativo : undefined}
-                aria-current={ativo(item.href) ? 'page' : undefined}>{item.nome}</Link>
+                aria-current={ativo(item.href) ? 'page' : undefined}>
+                {MENU_A_MAO ? <PalavraAMao mao={item.mao} nome={item.nome} /> : item.nome}
+              </Link>
             </li>
           ))}
         </ul>

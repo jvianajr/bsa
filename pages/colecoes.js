@@ -8,7 +8,7 @@ export async function getStaticProps() {
     return { props: { colecoes: await buscarColecoesVisiveis() }, revalidate: ATUALIZAR_A_CADA }
   } catch (e) {
     // com o site no ar, o erro mantém a última versão boa; na montagem, a página sai com a lista do site
-    if (!EM_BUILD) throw e
+    if (!EM_BUILD && process.env.NODE_ENV === 'production') throw e // no localhost, abre mesmo sem o Freesound
     return { props: { colecoes: colecoesDaLista() }, revalidate: 60 }
   }
 }
