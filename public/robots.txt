@@ -1,6 +1,8 @@
 User-agent: *
 Allow: /
 Disallow: /api/
+# páginas de palavras-chave: são centenas, e cada visita de robô gastava pedidos ao Freesound (28/11)
+Disallow: /tag/
 Disallow: /inscricao-confirmada
 
 Sitemap: https://www.bancosonoroamazonico.com.br/sitemap.xml

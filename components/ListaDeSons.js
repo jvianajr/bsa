@@ -83,7 +83,7 @@ export default function ListaDeSons({ sons, mostrarColecao = false, aoClicarTag 
             {som.ficha && <p className='t-xs cor-600 pb-1 ficha-som'>{som.ficha}</p>}
             <div className='tags'>
               {som.tags.map(({ tag, rotulo }) => (
-                <Link key={tag} href={`/tag/${encodeURIComponent(tag)}`} prefetch={false} className='tag'
+                <Link key={tag} href={`/tag/${encodeURIComponent(tag)}`} prefetch={false} rel='nofollow' className='tag'
                   onClick={aoClicarTag ? (e) => { if (e.metaKey || e.ctrlKey || e.shiftKey) return; e.preventDefault(); aoClicarTag({ tag, rotulo }) } : undefined}>{rotulo}</Link>
               ))}
             </div>

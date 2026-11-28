@@ -1,7 +1,7 @@
 import Seo from '../../components/Seo'
 import NextLink from 'next/link'
 import ListaDeSons from '../../components/ListaDeSons'
-import { buscarSonsPorTag, ATUALIZAR_A_CADA } from '../../lib/freesound'
+import { buscarSonsPorTag, ATUALIZAR_TAGS } from '../../lib/freesound'
 import { prepararSom, rotuloDaTag } from '../../lib/sons'
 import Cabecalho from '../../components/Cabecalho'
 
@@ -13,12 +13,12 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const tag = String(params.tag || '').toLowerCase()
-  if (!/^[a-z0-9-]{1,60}$/.test(tag)) return { notFound: true, revalidate: ATUALIZAR_A_CADA }
+  if (!/^[a-z0-9-]{1,60}$/.test(tag)) return { notFound: true, revalidate: ATUALIZAR_TAGS }
   const sons = await buscarSonsPorTag(tag)
-  if (!sons.length) return { notFound: true, revalidate: ATUALIZAR_A_CADA }
+  if (!sons.length) return { notFound: true, revalidate: ATUALIZAR_TAGS }
   return {
     props: { tag, rotulo: rotuloDaTag(tag), sons: sons.map(prepararSom) },
-    revalidate: ATUALIZAR_A_CADA,
+    revalidate: ATUALIZAR_TAGS,
   }
 }
 

@@ -26,13 +26,10 @@ export async function getStaticProps({ params }) {
     sons = pacote.num_sounds > 0 ? await buscarSonsDoPacote(colecao.pacote) : []
     visiveis = await buscarColecoesVisiveis()
   } catch (e) {
-    // Freesound fora do ar ou no limite: em vez de erro, a página abre com um aviso
-    // e tenta de novo em 1 minuto (só acontece se ainda não houver uma versão boa guardada).
+    // Freesound fora do ar ou no limite: o erro faz o site continuar mostrando a última versão boa
+    // da página (só a primeira montagem de uma coleção fica sem página até o Freesound voltar).
     console.error('coleção', colecao.slug, e.message)
-    return {
-      props: { colecao, infopack: { name: colecao.nome, description: '', num_sounds: 0 }, sons: [], colecoes: [], falhou: true },
-      revalidate: 60,
-    }
+    throw e
   }
   return {
     props: {

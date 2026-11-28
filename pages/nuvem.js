@@ -277,7 +277,7 @@ export default function Nuvem({ palavras }) {
             <ul className='nuvem-lista'>
               {lista.map((p) => (
                 <li key={p.tag}>
-                  <NextLink href={`/tag/${encodeURIComponent(p.tag)}`} prefetch={false} className='link'
+                  <NextLink href={`/tag/${encodeURIComponent(p.tag)}`} prefetch={false} rel='nofollow' className='link'
                     title={`${p.n} ${p.n === 1 ? 'som' : 'sons'}`} onClick={abrir(p)}>{p.rotulo}</NextLink>
                 </li>
               ))}
