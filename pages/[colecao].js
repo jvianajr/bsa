@@ -9,14 +9,15 @@ import Cabecalho from '../components/Cabecalho'
 // Uma página para cada coleção da lista em lib/colecoes.js.
 // Os endereços antigos (ex.: /sonsdacasa) continuam iguais.
 export async function getStaticPaths() {
-  return {
-    paths: colecoes.map((c) => ({ params: { colecao: c.slug } })),
-    fallback: false,
-  }
+  // 28/11: as páginas das coleções não são mais montadas na publicação (eram 24 páginas pedindo
+  // sons ao Freesound ao mesmo tempo, e a montagem esbarrava no limite de pedidos). Cada uma é
+  // montada na primeira visita e depois fica guardada como as outras (revalidate).
+  return { paths: [], fallback: 'blocking' }
 }
 
 export async function getStaticProps({ params }) {
   const colecao = colecaoPorSlug(params.colecao)
+  if (!colecao) return { notFound: true }
   const pacotes = await buscarPacotes()
   const pacote = pacotes[colecao.pacote] || {}
   // Só pede a lista de sons se o pacote já tiver sons publicados.
